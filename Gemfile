@@ -32,6 +32,11 @@ gem 'ckeditor' , '~> 4.1'
 # Gems for Youtube
 gem 'yt', '~> 0.13.7'
 gem 'autoprefixer-rails'
+gem 'rails-observers'
+gem 'omniauth-google-oauth2'
+
+# Use active_type as a pseudo aciverecord object
+gem 'active_type', '0.3.1'
 
 # User authentication
 gem 'devise'

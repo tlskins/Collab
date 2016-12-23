@@ -16,6 +16,11 @@
         <% if admin_signed_in? %>
         <!--This block is only visible to signed in admins -->
           <li><%= link_to 'New Post', new_post_path %></li>
+          <li><%= link_to 'Videos', videos_path %></li>
+          <li><%= link_to 'Add Video', new_video_path %></li>
+          <% if current_user %>
+            <li><%= link_to 'Upload Video', new_video_upload_path %></li>
+          <% end %>
           <li><%= link_to 'My Account', edit_admin_registration_path  %></li>
           <li><%= link_to 'Logout', destroy_admin_session_path, :method => :delete %></li>
         <!-- The block ends here -->
