@@ -1,0 +1,14 @@
+
+  <div class="container">
+    <h1><%= video.title %></h1>
+    <p>Published at <%= video.published_at.strftime('%-d %B %Y %H:%M:%S') %></p>
+    <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= video.likes %>
+    <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= video.dislikes %>
+
+    <div id="player-wrapper"></div>
+      <div class="row">
+            <div class="col-md-4">
+            </div>
+      </div>
+  </div>
+

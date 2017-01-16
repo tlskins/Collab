@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223164748) do
+ActiveRecord::Schema.define(version: 20170116210952) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -27,10 +27,14 @@ ActiveRecord::Schema.define(version: 20161223164748) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "avatar"
+    t.string   "name"
+    t.string   "token"
+    t.string   "uid"
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  add_index "admins", ["uid"], name: "index_admins_on_uid", unique: true
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
@@ -44,6 +48,13 @@ ActiveRecord::Schema.define(version: 20161223164748) do
   end
 
   add_index "ckeditor_assets", ["type"], name: "index_ckeditor_assets_on_type"
+
+  create_table "collaborators", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.integer  "collab_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
