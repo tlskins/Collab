@@ -7,6 +7,29 @@ Rails.application.routes.draw do
   resources :videos, only: [:index, :new, :create]
   resources :video_uploads, only: [:new, :create]
 
+  resources :collab_projects do
+    resources :branches
+
+    resources :branches do
+      get 'new_child_branch', to: 'branches#new'
+      resources :leafs
+
+      resources :leafs do
+        post 'create', to: 'leafs#create'
+      end
+    end
+#    member do
+#      resources :branches do
+#        get 'new_child_branch', to: 'branches#new'
+
+#        member do
+#          resources :leafs
+#        end
+
+#      end	
+#    end
+  end
+
   get '/auth/:provider/callback', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy', as: :logout
 

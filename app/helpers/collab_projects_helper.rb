@@ -1,0 +1,2 @@
+module CollabProjectsHelper
+end

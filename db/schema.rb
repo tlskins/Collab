@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116210952) do
+ActiveRecord::Schema.define(version: 20170118204956) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 20170116210952) do
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   add_index "admins", ["uid"], name: "index_admins_on_uid", unique: true
 
+  create_table "branches", force: :cascade do |t|
+    t.integer  "collab_id"
+    t.integer  "creator_id"
+    t.string   "name"
+    t.boolean  "attached"
+    t.integer  "master_start_time"
+    t.integer  "parent_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "description"
+  end
+
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
     t.string   "data_content_type"
@@ -49,12 +61,49 @@ ActiveRecord::Schema.define(version: 20170116210952) do
 
   add_index "ckeditor_assets", ["type"], name: "index_ckeditor_assets_on_type"
 
+  create_table "collab_projects", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "creator_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "collaborators", force: :cascade do |t|
     t.integer  "admin_id"
     t.integer  "collab_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "text"
+    t.integer  "author_id"
+    t.boolean  "pinned"
+    t.integer  "commentary_id"
+    t.string   "commentary_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "order"
+  end
+
+  add_index "comments", ["commentary_id", "commentary_type"], name: "index_comments_on_commentary_id_and_commentary_type"
+
+  create_table "leafs", force: :cascade do |t|
+    t.string   "link"
+    t.string   "title"
+    t.datetime "published_at"
+    t.integer  "likes"
+    t.integer  "dislikes"
+    t.string   "uid"
+    t.string   "description"
+    t.integer  "length"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "branch_id"
+  end
+
+  add_index "leafs", ["uid"], name: "index_leafs_on_uid"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"

@@ -1,0 +1,17 @@
+    <div class="panel panel-info">
+        <div class="panel-heading">
+          <% if branch.leaves.last %>
+                <%= image_tag("https://img.youtube.com/vi/#{branch.leaves.last.uid}/mqdefault.jpg", alt: branch.leaves.last.title, class: 'img-rounded') %>
+          <% end %>
+            <h4><%= link_to branch.name, collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>
+            </h4>
+        </div>
+        <div class="panel-footer">
+            <p>
+               <%= branch.description %><br /><br />
+               <b>Creator: </b><%= branch.creator.name %><br />
+               <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br />
+		<%= link_to "delete branch", collab_project_branch_path(:id => branch.id, :collab_project_id => branch.collabproject.id), method: :delete,  data: { confirm: "You sure?" } %>
+            </p>
+        </div>
+    </div>

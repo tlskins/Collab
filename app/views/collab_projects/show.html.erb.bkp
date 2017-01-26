@@ -1,0 +1,35 @@
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading"><b>Collab: </b><%= @collab_project.name %></h1>
+        <p class="lead text-muted"><b>Description: </b><%= @collab_project.description %></p>
+        <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y %H') %></p>
+        <p>
+          <a href='#' class="btn btn-primary">Edit Collab Details</a>
+          <a href='#' class="btn btn-primary">Add Collaborator</a>
+          <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-primary">Create Branch</a>
+        </p>
+      </div>
+    </section>
+
+<% if @branches.any? %>
+  <div class="container-fluid bg-1 text-center">
+    <h3>Branches</h3>
+  </div>
+  <div class="container">
+    <% @branches.in_groups_of(3) do |group| %>
+      <div class="text-center row vertical-center-row">
+        <% group.each do |branch| %>
+          <% if branch %>
+            <div class="col-md-4">
+              <%= render branch %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="container-fluid bg-1 text-center">
+    <h3>No Branches</h3>
+  </div>
+<% end %>

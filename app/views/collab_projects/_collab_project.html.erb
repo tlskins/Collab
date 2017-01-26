@@ -1,0 +1,14 @@
+<div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4><%= link_to collab_project.name, collab_project_path(collab_project) %>
+            </h4>
+        </div>
+        <div class="panel-footer">
+            <p>
+	       <%= collab_project.description %><br />
+               <b>Created on: </b><%= collab_project.created_at.strftime('%-d %B %Y') %>
+	    </p>
+        </div>
+    </div>
+</div>
