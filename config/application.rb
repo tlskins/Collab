@@ -33,6 +33,6 @@ module Collab
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_record.observers = :video_observer
-    config.active_record.observers = :leaf_observer
+    config.active_record.observers = :source_youtube_observer
   end
 end

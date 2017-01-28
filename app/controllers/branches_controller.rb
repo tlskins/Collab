@@ -29,6 +29,8 @@ class BranchesController < ApplicationController
     @collab_project = @branch.collabproject
     @branch.leaves ? @leaf = @branch.leaves.last : @leaf = nil
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
+    @leaf = Branch.find(params[:id]).leaves.new
+    @source_text = @leaf.build_source_text
   end
 
   def destroy
@@ -43,7 +45,7 @@ class BranchesController < ApplicationController
   private
 
   def branch_params
-    params.require(:branch).permit(:name, :description)
+    params.require(:branch).permit(:name, :purpose, :order)
   end
 
 end

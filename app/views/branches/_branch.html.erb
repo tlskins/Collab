@@ -1,27 +1,16 @@
-<!-- Project -->
-<div class="row">
-  <div class="col-md-7">
-    <a href="#">
-      <% if branch.leaves.last %>
-        <%= image_tag("https://img.youtube.com/vi/#{branch.leaves.last.uid}/mqdefault.jpg", alt: branch.leaves.last.title, class: 'img-rounded') %>
-      <% else %>
-        <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-      <% end %>
-    </a>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + branch.id.to_s %>>
+        <%= branch.name %></a>
+      </h4>
+    </div>
+    <div id=<%= 'collapse' + branch.id.to_s %> class="panel-collapse collapse in">
+      <div class="panel-body">
+        <%= branch.purpose %><br />
+        <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br /><br />
+        <a class="btn btn-primary btn-sm" href=<%= collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>>Goto Branch<span class="glyphicon glyphicon-chevron-right"></span></a><br /><br />
+      </div>
+    </div>
   </div>
-  <div class="col-md-5">
-    <h3><b>Name:</b> <%= branch.name %></h3>
-    <p>
-      <%= branch.description %><br />
-      <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %>
-    </p>
-    <a class="btn btn-primary" href=<%= collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>>View Branch<span class="glyphicon glyphicon-chevron-right"></span></a><br /><br />
-
-<%= link_to "delete branch", collab_project_branch_path(:id => branch.id, :collab_project_id => branch.collabproject.id), class: 'btn btn-warning btn-sm', method: :delete,  data: { confirm: "You sure you want to delete this branch?" }  %>
-
-  </div>
-</div>
-<!-- /.row -->
-
-<hr>
 

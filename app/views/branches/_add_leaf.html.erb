@@ -1,0 +1,50 @@
+<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add Leaf</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Create Leaf</h4>
+      </div>
+
+      <%= form_for(@leaf, url: collab_project_branch_add_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
+        <div class="modal-body">
+
+        <!-- Form for Leaf name -->
+          <div class="form-group">
+            <%= f.label :name, 'name' %><br />
+            <%= f.text_field :name, class: 'form-control' %><br />
+          </div>
+
+        <!-- Form for creating a Text source -->
+          <div class="form-group col-lg-12 text-center">
+            <%= f.label :text, 'text' %><br />
+            <%= text_area_tag 'text', nil,  class: 'form-control' %><br />
+          </div>
+
+        <!-- Form for creating a Youtube source -->
+          <div class="form-group col-lg-12 text-center">
+            <%= f.label :youtube, 'youtube'  %><br />
+            <%= text_field_tag :link, nil,  class: 'form-control' %><br />
+            <span class="help-block">A link to the video on YouTube.</span><br />
+          </div>
+
+          <div class="form-group col-lg-12 text-center">
+            <%= f.submit 'Create Leaf', class: 'btn btn-primary' %>
+          </div>
+
+        </div>
+      <% end %>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

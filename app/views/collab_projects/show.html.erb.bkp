@@ -1,3 +1,4 @@
+
     <section class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading"><b>Collab: </b><%= @collab_project.name %></h1>
@@ -11,25 +12,27 @@
       </div>
     </section>
 
-<% if @branches.any? %>
-  <div class="container-fluid bg-1 text-center">
-    <h3>Branches</h3>
-  </div>
-  <div class="container">
-    <% @branches.in_groups_of(3) do |group| %>
-      <div class="text-center row vertical-center-row">
-        <% group.each do |branch| %>
-          <% if branch %>
-            <div class="col-md-4">
-              <%= render branch %>
-            </div>
-          <% end %>
+<div class="container">
+  <div class="col-md-7">
+
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class='page-header'><%= @collab_project.name %> collab
+          <small>branches</small>
+        </h1>
+      </div>
+    </div>
+
+    <% if @branches.any? %>
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <% @branches.each do |branch| %>
+          <%= render branch %>
         <% end %>
       </div>
+    <% else %>
+      <h3>No Branches</h3>
     <% end %>
+
   </div>
-<% else %>
-  <div class="container-fluid bg-1 text-center">
-    <h3>No Branches</h3>
-  </div>
-<% end %>
+</div>
+

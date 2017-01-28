@@ -12,9 +12,14 @@ Rails.application.routes.draw do
 
     resources :branches do
       get 'new_child_branch', to: 'branches#new'
+      post 'add_leaf', to: 'leafs#create'
       resources :leafs
 
       resources :leafs do
+        collection do
+          post 'set_source_type', to: 'leafs#set_source_type'
+        end
+
         post 'create', to: 'leafs#create'
       end
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118204956) do
+ActiveRecord::Schema.define(version: 20170127153707) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,12 +40,11 @@ ActiveRecord::Schema.define(version: 20170118204956) do
     t.integer  "collab_id"
     t.integer  "creator_id"
     t.string   "name"
-    t.boolean  "attached"
-    t.integer  "master_start_time"
     t.integer  "parent_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.string   "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "purpose"
+    t.integer  "order"
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -90,26 +89,39 @@ ActiveRecord::Schema.define(version: 20170118204956) do
   add_index "comments", ["commentary_id", "commentary_type"], name: "index_comments_on_commentary_id_and_commentary_type"
 
   create_table "leafs", force: :cascade do |t|
-    t.string   "link"
-    t.string   "title"
-    t.datetime "published_at"
-    t.integer  "likes"
-    t.integer  "dislikes"
-    t.string   "uid"
-    t.string   "description"
-    t.integer  "length"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "branch_id"
+    t.string   "name"
+    t.integer  "creator_id"
+    t.integer  "order"
   end
-
-  add_index "leafs", ["uid"], name: "index_leafs_on_uid"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "source_texts", force: :cascade do |t|
+    t.string   "text"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "leaf_id"
+  end
+
+  create_table "source_youtubes", force: :cascade do |t|
+    t.string   "link"
+    t.string   "uid"
+    t.string   "title"
+    t.datetime "published_at"
+    t.integer  "likes"
+    t.integer  "dislikes"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "leaf_id"
   end
 
   create_table "users", force: :cascade do |t|

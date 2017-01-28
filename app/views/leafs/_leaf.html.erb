@@ -1,0 +1,5 @@
+<% if @source.class.name == 'SourceYoutube' %>
+  <%= render :partial => 'leafs/leaf_youtube' %>
+<% elsif @source.class.name == 'SourceText' %>
+  <%= render :partial => 'leafs/leaf_text' %>
+<% end %>

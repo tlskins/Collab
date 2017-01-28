@@ -1,6 +1,6 @@
 class Leaf < ActiveRecord::Base
   belongs_to :branch
-  YT_LINK_FORMAT = /\A.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/i
+  has_one :source_youtube
+  has_one :source_text
 
-  validates :link, presence: true, format: YT_LINK_FORMAT
 end
