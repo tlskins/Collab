@@ -24,13 +24,14 @@
     </div>
 
     <% if @branches.any? %>
-      <div class="panel-group" id="accordion">
+      <div id="accordion" role="tablist" aria-multiselectable="true">
         <% @branches.each do |branch| %>
           <%= render branch %>
         <% end %>
-      </div<>
+        <br /><br />
+      </div>
     <% else %>
-      <h3>No Branches</h3>
+      <h3>No Branches<br /><br /></h3>
     <% end %>
 
   </div>

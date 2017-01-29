@@ -1,7 +1,11 @@
 class CollabProjectsController < ApplicationController
 
   def index
-    @collab_projects = CollabProject.find_by_admin(current_admin)
+    if current_admin
+      @collab_projects = CollabProject.find_by_admin(current_admin)
+    else
+      @collab_projects = CollabProject.all
+    end
   end
 
   def new

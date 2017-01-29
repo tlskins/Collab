@@ -27,7 +27,7 @@ class BranchesController < ApplicationController
   def show
     @branch = Branch.find(params[:id])
     @collab_project = @branch.collabproject
-    @branch.leaves ? @leaf = @branch.leaves.last : @leaf = nil
+    @branch.leaves ? @current_leaf = @branch.leaves.last : @current_leaf = nil
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
     @leaf = Branch.find(params[:id]).leaves.new
     @source_text = @leaf.build_source_text

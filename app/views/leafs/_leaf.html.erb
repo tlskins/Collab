@@ -1,5 +1,21 @@
-<% if @source.class.name == 'SourceYoutube' %>
-  <%= render :partial => 'leafs/leaf_youtube' %>
-<% elsif @source.class.name == 'SourceText' %>
-  <%= render :partial => 'leafs/leaf_text' %>
-<% end %>
+<div class="card">
+  <p class="card-header text-center">
+    Leaf Created: <%= @current_leaf.created_at.strftime('%-d %B %Y') %>
+  </h2>
+  <div class="card-block">
+    <div class="panel-group">
+      <div class="col-md-10 col-md-offset-1">
+        <% if @current_leaf.source_youtube %>
+          <%= render 'leafs/leaf_youtube' %>
+        <% end %>
+
+        <% if @current_leaf.source_text %>
+          <%= render 'leafs/leaf_text' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-muted text-center">
+    <%= render 'branches/edit_leaf' %>
+  </div>
+</div>

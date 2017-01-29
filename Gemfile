@@ -27,6 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #https://scotch.io/tutorials/build-a-blog-with-ruby-on-rails-part-1
 gem 'simple_form', '~> 3.2'
 gem 'bootstrap-sass' , '~> 3.3'
+#gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'ckeditor' , '~> 4.1'
 
 # Gems for Youtube

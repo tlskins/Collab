@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :admins
-  root to: "posts#index"
+  root to: "collab_projects#index"
   
   resources :posts
   resources :videos, only: [:index, :new, :create]
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :branches do
       get 'new_child_branch', to: 'branches#new'
       post 'add_leaf', to: 'leafs#create'
+      patch 'edit_leaf', to: 'leafs#edit'
       resources :leafs
 
       resources :leafs do

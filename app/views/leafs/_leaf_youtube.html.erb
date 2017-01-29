@@ -1,23 +1,25 @@
-  <div class="container">
-    <div id="player-wrapper"></div>
+<div class="panel panel-default">
+  <div class="panel-heading">Youtube</div>
+  <div class="panel-body">
+    <p class="card-text">
       <div class="text-center row vertical-center-row">
-        <h1>Current Leaf</h1>
-          <% if @source %>
             <div class="text-center col-md-4 col-md-offset-4">
               <div class="yt_video thumbnail">
-                <%= link_to image_tag("https://img.youtube.com/vi/#{@source.uid}/mqdefault.jpg", alt: @source.title,
+                <%= link_to image_tag("https://img.youtube.com/vi/#{@current_leaf.source_youtube.uid}/mqdefault.jpg", alt: @current_leaf.source_youtube.title,
                                       class: 'img-rounded'),
-                            "https://www.youtube.com/watch?v=#{@source.uid}", target: '_blank' %>
+                            "https://www.youtube.com/watch?v=#{@current_leaf.source_youtube.uid}", target: '_blank' %>
                 <div class="caption">
-                  <h5><%= @source.title %></h5>
-                  <p><b>Published at:</b> <%= @source.published_at %></p>
+                  <h5><%= @current_leaf.source_youtube.title %></h5>
+                  <p><b>Published at:</b> <%= @current_leaf.source_youtube.published_at %></p>
                   <p>
-                    <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= @source.likes %>
-                    <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= @source.dislikes %>
+                    <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= @current_leaf.source_youtube.likes %>
+                    <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= @current_leaf.source_youtube.dislikes %>
                   </p>
                 </div>
               </div>
             </div>
-          <% end %>
       </div>
+    </p>
   </div>
+</div>
+

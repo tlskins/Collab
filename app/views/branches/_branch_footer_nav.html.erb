@@ -1,0 +1,24 @@
+<nav class="navbar navbar-fixed-bottom navbar-toggleable-md navbar-light bg-faded">
+  <div class="text-center col-md-8 col-md-offset-2 vertical-center">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <ul class="nav justify-content-center pagination">
+
+      <li class="page-item">
+        <%= link_to @branch.collabproject.name + ' collab', collab_project_path(@branch.collabproject), class: "nav-link"  %>
+      </li>
+
+      <% if @branch.parent_branch %>
+        <li class="page-item">
+          <%= link_to 'Parent Branch: ' + @branch.parent_branch.name, collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.parent_branch.id), class: "nav-link"  %>
+        </li>
+      <% end %>
+
+      <li class="page-item active">
+        <a class="nav-link" href='#'><b><%= @branch.name %></b></a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

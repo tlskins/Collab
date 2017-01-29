@@ -1,9 +1,5 @@
     <section class="jumbotron text-center">
       <div class="container">
-        <p class="lead text-muted"><b><%= link_to @branch.collabproject.name + ' collab', collab_project_path(@branch.collabproject)  %></b>
-        <% if @branch.parent_branch %>
-          <p class="lead text-muted"><b><%= link_to 'Parent Branch: ' + @branch.parent_branch.name, collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.parent_branch.id)  %></b>
-        <% end %>
         <h1 class="jumbotron-heading"><b>Branch: </b><%= @branch.name %></h1>
         <p class="lead text-muted"><b>Purpose: </b><%= @branch.purpose %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y %H') %></p>
@@ -17,11 +13,19 @@
     </section>
 
 <div class="container">
+  <div class="col-md-10 col-md-offset-1">
+    <% if @current_leaf %>
+      <%= render @current_leaf %>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
   <div class="col-md-7">
 
     <div class="row">
       <div class="col-lg-12">
-        <h1 class='page-header'><%= @branch.name %> branch
+        <h1 class='page-header'><%= @branch.name %>
           <small>child branches</small>
         </h1>
       </div>
@@ -32,12 +36,13 @@
         <% @child_branches.each do |branch| %>
           <%= render branch %>
         <% end %>
-      </div<>
+        <br /><br />
+      </div>
     <% else %>
-      <h3>No Branches</h3>
+      <h3>No Child Branches<br /><br /></h3>
     <% end %>
 
   </div>
 </div>
 
-
+<%= render 'branches/branch_footer_nav' %>

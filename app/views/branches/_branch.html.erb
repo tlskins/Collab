@@ -1,13 +1,16 @@
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + branch.id.to_s %>>
-        <%= branch.name %></a>
-      </h4>
+
+  <div class="card">
+    <div class="card-header" role="tab" id=<%= 'heading' + branch.id.to_s %>>
+      <h5 class="mb-0">
+        <a data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + branch.id.to_s %> aria-expanded="true" aria-controls=<%= 'collapse' + branch.id.to_s %>>
+          <%= branch.name.to_s %>
+        </a>
+      </h5>
     </div>
-    <div id=<%= 'collapse' + branch.id.to_s %> class="panel-collapse collapse in">
-      <div class="panel-body">
-        <%= branch.purpose %><br />
+
+    <div id=<%= 'collapse' + branch.id.to_s %> class="collapse" role="tabpanel" aria-labelledby=<%= 'heading' + branch.id.to_s %>>
+      <div class="card-block">
+        <%= branch.purpose.to_s %><br />
         <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br /><br />
         <a class="btn btn-primary btn-sm" href=<%= collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>>Goto Branch<span class="glyphicon glyphicon-chevron-right"></span></a><br /><br />
       </div>
