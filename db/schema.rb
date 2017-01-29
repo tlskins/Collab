@@ -11,25 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170127153707) do
+ActiveRecord::Schema.define(version: 20170129202743) do
 
   create_table "admins", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                       default: "", null: false
+    t.string   "encrypted_password",          default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",               default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "avatar"
     t.string   "name"
     t.string   "token"
     t.string   "uid"
+    t.integer  "my_draft_comments_count",     default: 0
+    t.integer  "my_published_comments_count", default: 0
+    t.integer  "my_comments_count",           default: 0
+    t.integer  "draft_comcoms_count",         default: 0
+    t.integer  "published_comcoms_count",     default: 0
+    t.integer  "deleted_comcoms_count",       default: 0
+    t.integer  "spam_comcoms_count",          default: 0
   end
 
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
@@ -41,10 +48,13 @@ ActiveRecord::Schema.define(version: 20170127153707) do
     t.integer  "creator_id"
     t.string   "name"
     t.integer  "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "purpose"
     t.integer  "order"
+    t.integer  "draft_comments_count",     default: 0
+    t.integer  "published_comments_count", default: 0
+    t.integer  "deleted_comments_count",   default: 0
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -74,19 +84,6 @@ ActiveRecord::Schema.define(version: 20170127153707) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "comments", force: :cascade do |t|
-    t.string   "text"
-    t.integer  "author_id"
-    t.boolean  "pinned"
-    t.integer  "commentary_id"
-    t.string   "commentary_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "order"
-  end
-
-  add_index "comments", ["commentary_id", "commentary_type"], name: "index_comments_on_commentary_id_and_commentary_type"
 
   create_table "leafs", force: :cascade do |t|
     t.datetime "created_at", null: false

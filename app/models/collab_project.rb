@@ -3,7 +3,6 @@ class CollabProject < ActiveRecord::Base
   has_many :attached_branches, -> { where attached: true }, class_name: "Branch", foreign_key: :collab_id
   has_many :unattached_branches, -> { where attached: false }, class_name: "Branch", foreign_key: :collab_id
   has_many :collaborators, class_name: "Collaborator", foreign_key: :collab_id, dependent: :destroy
-  has_many :comments, as: :commentary, dependent: :destroy
   belongs_to :creator, class_name: "Collaborator", foreign_key: :creator_id
 
   def CollabProject.find_by_admin(admin)
