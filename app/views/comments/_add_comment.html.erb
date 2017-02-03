@@ -1,0 +1,40 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAddComment">Add Comment</button>
+
+<!-- Modal -->
+<div id="myModalAddComment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Add Comment</h4>
+      </div>
+
+      <%= form_for(@comment, url: collab_project_branch_comments_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
+        <div class="modal-body">
+
+	<% if @comment.parent %>
+	  <%= render 'comment', comment: @comment.parent, from_reply_form: true %>
+	<% end %>
+
+          <div class="form-group col-lg-12 text-center">
+	    <%= f.hidden_field :parent_id %>
+            <%= f.text_area :body, class: 'form-control', required: true %>
+          </div>
+
+          <div class="form-group col-lg-12 text-center">
+            <%= f.submit 'Post Comment', class: 'btn btn-primary' %>
+          </div>
+
+        </div>
+      <% end %>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+

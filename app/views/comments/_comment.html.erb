@@ -1,0 +1,17 @@
+<div class="well well-sm">
+  <p class="text-muted">Added by <strong><%= comment.collaborator.admin.name %></strong> on
+    <%= l(comment.created_at, format: '%B, %d %Y %H:%M:%S') %></p>
+    <p><%= comment.body %></p>
+
+<% from_reply_form ||= nil %>
+<% unless from_reply_form %>
+  <% if @is_current_admin_collaborator %>
+    <p><%= link_to 'reply', collab_project_branch_new_comment_path(:parent_id => comment.id, :branch_id => @branch.id) %></p>
+  <% end %>
+<% end %>
+
+  <% if comment.collaborator.admin.id == current_admin.id %>
+    <%= link_to "delete", collab_project_branch_comment_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :id => comment.id), method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+
+</div>

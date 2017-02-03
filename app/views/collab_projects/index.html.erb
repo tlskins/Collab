@@ -8,16 +8,40 @@
   </div>
 </div>
 
-<% if @collab_projects.any? %>
-  <div class="container">
-    <% @collab_projects.in_groups_of(3) do |group| %>
-      <div class="row">
-        <% group.each do |collab_project| %>
-          <% if collab_project %>
-            <%= render collab_project %>
-          <% end %>
-        <% end %>
+  <% unless @collab_projects.empty? %>
+    <div class="container">
+      <div class="col-lg-12">
+        <h1 class='page-header'>Collabs you are working on</h1>
+              
+              <% @collab_projects.in_groups_of(3) do |group| %>
+                <div class="row">
+                  <% group.each do |collab_project| %>
+                    <% if collab_project %>
+                      <%= render collab_project %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+
       </div>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+
+  <% unless @collab_projects_all.empty? %>
+    <div class="container">
+      <div class="col-lg-12">
+        <h1 class='page-header'>All Collabs</h1>
+
+              <% @collab_projects_all.in_groups_of(3) do |group| %>
+                <div class="row">
+                  <% group.each do |collab_project| %>
+                    <% if collab_project %>
+                      <%= render collab_project %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+
+      </div>
+    </div>
+  <% end %>

@@ -1,3 +1,17 @@
+
+<%= link_to image_tag("https://img.youtube.com/vi/#{@current_leaf.source_youtube.uid}/mqdefault.jpg", alt: @current_leaf.source_youtube.title,
+                                      class: 'img-rounded'),
+                            "https://www.youtube.com/watch?v=#{@current_leaf.source_youtube.uid}", target: '_blank' %>
+<div class="card-block">
+  <p class="card-text">
+    <h5><%= @current_leaf.source_youtube.title %></h5>
+    <b>Published at:</b> <%= @current_leaf.source_youtube.published_at %> 
+    <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= @current_leaf.source_youtube.likes %>
+    <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= @current_leaf.source_youtube.dislikes %>
+  </p>
+</div>
+
+<!--
 <div class="panel panel-default">
   <div class="panel-heading">Youtube</div>
   <div class="panel-body">
@@ -22,4 +36,4 @@
     </p>
   </div>
 </div>
-
+-->

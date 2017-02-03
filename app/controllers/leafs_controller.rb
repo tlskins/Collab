@@ -19,26 +19,9 @@ class LeafsController < ApplicationController
 
   def edit
     @leaf = Leaf.find(params[:leaf_id])
-
-    if params[:text]
-      if @leaf.source_text
-        @leaf.source_text.text = params[:text]
-        @leaf.save
-      else
-        @leaf.create_source_text(text: params[:text])
-      end
-      flash[:success] = 'Leaf Updated!'
-    end
-
-    if params[:link]
-      if @leaf.source_youtube
-        @leaf.source_youtube.link = params[:link]
-        @leaf.save
-      else
-        @leaf.create_source_youtube(link: params[:link])
-      end
-      flash[:success] = 'Leaf Updated!'
-    end
+    @leaf.update_text(params[:text])
+    @leaf.update_link(params[:link])
+    flash[:success] = 'Leaf Updated!'
 
     redirect_to collab_project_branch_path(@leaf.branch.collabproject, @leaf.branch)
   end

@@ -3,12 +3,17 @@
       <div class="container">
         <h1 class="jumbotron-heading"><b>Collab: </b><%= @collab_project.name %></h1>
         <p class="lead text-muted"><b>Description: </b><%= @collab_project.description %></p>
+        <p class="lead text-muted"><b>Collaborators: </b><%= @collaborators_list %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y %H') %></p>
+
+        <% if current_admin_collaborator?(@collab_project.id) %>
         <p>
           <a href='#' class="btn btn-primary">Edit Collab Details</a>
-          <a href='#' class="btn btn-primary">Add Collaborator</a>
+          <a href=<%= new_collab_project_collaborator_path(@collab_project) %> class="btn btn-primary">Add Collaborator</a>
           <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-primary">Create Branch</a>
         </p>
+ 	<% end %>
+
       </div>
     </section>
 

@@ -1,4 +1,6 @@
 class BranchesController < ApplicationController
+include CollaboratorHelper
+
   def new
     @branch = Branch.new
     if params[:branch_id]
@@ -31,6 +33,9 @@ class BranchesController < ApplicationController
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
     @leaf = Branch.find(params[:id]).leaves.new
     @source_text = @leaf.build_source_text
+    @comment = Comment.new(parent_id: params[:parent_id])
+    @comments = @branch.comments.limit(18).includes(collaborator: [:admin]).hash_tree
+    @is_current_admin_collaborator = current_admin_collaborator?(@collab_project.id)
   end
 
   def destroy

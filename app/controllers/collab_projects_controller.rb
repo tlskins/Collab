@@ -2,13 +2,16 @@ class CollabProjectsController < ApplicationController
 
   def index
     if current_admin
-      @collab_projects = CollabProject.find_by_admin(current_admin)
+      @collab_projects = CollabProject.where(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
+      @collab_projects_all = CollabProject.where.not(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
     else
-      @collab_projects = CollabProject.all
+      @collab_projects_all = CollabProject.all
+      @collab_projects = []
     end
   end
 
   def new
+    puts 'collabproj controller new called'
     @collab_project = CollabProject.new
   end
 
@@ -28,7 +31,6 @@ class CollabProjectsController < ApplicationController
     @collab_project = CollabProject.find(params[:id])
     @collaborators_list = @collab_project.list_collaborators
     @branches = @collab_project.branches.where(parent_id: nil)
-    
   end
 
   private

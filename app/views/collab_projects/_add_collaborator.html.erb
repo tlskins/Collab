@@ -1,0 +1,43 @@
+<div id="AddCollabModal">
+<%= form_for(@collaborator, url: new_collab_project_collaborator_path(:collab_project_id => @collab_project.id), html: {multipart: :true, class: "form", method: :get}, remote: true) do |e| %>
+  <%= e.submit 'Add Collaborator', class: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': '#myModalAddCollaborator' %>
+<% end %>
+
+<% if @avail_collaborators %>
+<!-- Modal -->
+<div id="myModalAddCollaborator" class="modal-fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Add Collaborator</h4>
+      </div>
+
+      <%= form_for(@collaborator, url: new_collab_project_collaborator_path(@collab_project), html: {multipart: :true, class: "form"}, remote: true) do |f| %>
+        <div class="modal-body">
+
+        <!-- Drop down to select collaborators -->
+          <div class="form-group col-lg-12 text-center">
+            <%= f.label :text, 'Select someone to collaborate with' %><br />
+	    <%= select_tag 'collab_id', options_from_collection_for_select( @avail_collaborators, 'id', 'name')  %><br />
+          </div>
+
+          <div class="form-group col-lg-12 text-center">
+            <%= f.submit 'Add', class: 'btn btn-primary' %>
+          </div>
+
+        </div>
+      <% end %>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<% end %>
+
+</div>

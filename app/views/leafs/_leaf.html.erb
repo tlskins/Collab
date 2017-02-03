@@ -3,19 +3,54 @@
     Leaf Created: <%= @current_leaf.created_at.strftime('%-d %B %Y') %>
   </h2>
   <div class="card-block">
-    <div class="panel-group">
-      <div class="col-md-10 col-md-offset-1">
-        <% if @current_leaf.source_youtube %>
-          <%= render 'leafs/leaf_youtube' %>
-        <% end %>
 
-        <% if @current_leaf.source_text %>
-          <%= render 'leafs/leaf_text' %>
-        <% end %>
+    <div class="card">
+      <div class="card-block">
+
+<ul class="nav nav-tabs" id="dashboard_products">
+  <li class="active"><a href="#leaf_youtube" data-target="#leaf_youtube" data-toggle="tab"> Youtube </a></li>
+  <li><a href="#leaf_text" data-target="#leaf_text" data-toggle="tab"> Text </a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="leaf_youtube">
+
+    <% if @current_leaf.source_youtube %>
+      <div class="card">
+        <div class="card-block text-center">
+          <%= link_to image_tag("https://img.youtube.com/vi/#{@current_leaf.source_youtube.uid}/mqdefault.jpg", alt: @current_leaf.source_youtube.title,
+                                      class: 'img-rounded'),
+                            "https://www.youtube.com/watch?v=#{@current_leaf.source_youtube.uid}", target: '_blank' %>
+          <p class="card-text">
+            <h5><%= @current_leaf.source_youtube.title %></h5>
+            <b>Published at:</b> <%= @current_leaf.source_youtube.published_at %><br />
+            <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= @current_leaf.source_youtube.likes %><br />
+            <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= @current_leaf.source_youtube.dislikes %><br />
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="tab-pane" id="leaf_text" >
+
+    <% if @current_leaf.source_text %>  
+      <div class="card">
+        <div class="card-block">
+          <p><%= @current_leaf.source_text.text %></p>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
       </div>
     </div>
+
   </div>
   <div class="card-footer text-muted text-center">
-    <%= render 'branches/edit_leaf' %>
+    <% if @is_current_admin_collaborator %>
+      <%= render 'branches/edit_leaf' %>
+    <% end %>
   </div>
 </div>

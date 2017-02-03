@@ -1,0 +1,17 @@
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class='page-header'>
+	  <small>comments</small>
+        </h1>
+      </div>
+    </div>
+
+    <% if @is_current_admin_collaborator %>
+    <p>
+      <%= render 'comments/add_comment' %>
+    </p>
+    <% end %>
+
+<% if @comments %>
+  <%= comments_tree_for @comments %>
+<% end %>

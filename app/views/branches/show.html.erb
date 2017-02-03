@@ -3,12 +3,15 @@
         <h1 class="jumbotron-heading"><b>Branch: </b><%= @branch.name %></h1>
         <p class="lead text-muted"><b>Purpose: </b><%= @branch.purpose %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y %H') %></p>
+
+        <% if @is_current_admin_collaborator %>
         <p>
           <a href='#' class="btn btn-primary">Edit Branch Details</a>
-          <!--<a href=<%= new_collab_project_branch_leaf_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Leaf</a>-->
           <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Branch</a>
           <%= render('branches/add_leaf') %>
         </p>
+        <% end %>
+
       </div>
     </section>
 
@@ -21,8 +24,7 @@
 </div>
 
 <div class="container">
-  <div class="col-md-7">
-
+  <div class="col-md-6">
     <div class="row">
       <div class="col-lg-12">
         <h1 class='page-header'><%= @branch.name %>
@@ -30,7 +32,6 @@
         </h1>
       </div>
     </div>
-
     <% if @child_branches.any? %>
       <div class="panel-group" id="accordion">
         <% @child_branches.each do |branch| %>
@@ -41,7 +42,10 @@
     <% else %>
       <h3>No Child Branches<br /><br /></h3>
     <% end %>
+  </div>
 
+  <div class="col-md-6">
+    <%= render 'branches/add_display_comments' %>
   </div>
 </div>
 

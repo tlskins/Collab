@@ -9,11 +9,14 @@ Rails.application.routes.draw do
 
   resources :collab_projects do
     resources :branches
+    resources :collaborators, only: [:new, :create]
 
     resources :branches do
       get 'new_child_branch', to: 'branches#new'
       post 'add_leaf', to: 'leafs#create'
       patch 'edit_leaf', to: 'leafs#edit'
+      resources :comments, only: [:index, :new, :create, :destroy]
+      get '/comments/new/(:parent_id, :branch_id)', to: 'comments#new', as: :new_comment
       resources :leafs
 
       resources :leafs do
@@ -24,16 +27,6 @@ Rails.application.routes.draw do
         post 'create', to: 'leafs#create'
       end
     end
-#    member do
-#      resources :branches do
-#        get 'new_child_branch', to: 'branches#new'
-
-#        member do
-#          resources :leafs
-#        end
-
-#      end	
-#    end
   end
 
   get '/auth/:provider/callback', to: 'sessions#create'

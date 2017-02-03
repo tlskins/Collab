@@ -1,0 +1,14 @@
+<div class="col-sm-offset-4 col-sm-4 col-xs-12">
+  <h2 class="text-center">Add Collaborator</h2>
+
+  <%= form_for(@collaborator, url: collab_project_collaborators_path(:collab_project_id => @collab_project.id), html: {multipart: :true, class: "form", method: :post}) do |f| %>
+
+    <div class="form-group">
+      <%= label :text, 'Select someone to collaborate with' %><br />
+      <%= f.collection_select :admin_id, @avail_collaborators, :id, :name  %><br />
+    </div>
+
+    <%= f.submit "Add", class: "btn btn-primary btn-lg" %>
+  <% end %>
+
+</div>v
