@@ -1,6 +1,6 @@
 <div class="well well-sm">
   <p class="text-muted">Added by <strong><%= comment.collaborator.admin.name %></strong> on
-    <%= l(comment.created_at, format: '%B, %d %Y %H:%M:%S') %></p>
+    <%= time_ago_in_words(comment.created_at) + ' ago' %></p>
     <p><%= comment.body %></p>
 
 <% from_reply_form ||= nil %>

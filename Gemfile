@@ -46,7 +46,13 @@ gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
 
+# Comments closure_tree
 gem 'closure_tree'
+
+#public_activity for notifications
+gem 'autoprefixer-rails'
+gem 'public_activity'
+gem 'omniauth-facebook'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

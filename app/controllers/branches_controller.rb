@@ -1,5 +1,7 @@
 class BranchesController < ApplicationController
-include CollaboratorHelper
+  include CollaboratorHelper
+  include PublicActivityHelper
+  before_action :load_activities, only: [:show, :new, :edit]
 
   def new
     @branch = Branch.new
@@ -10,20 +12,31 @@ include CollaboratorHelper
 
   def create
     collab_project = CollabProject.find(params[:collab_project_id])
-    parent_branch = Branch.find_by(id: params[:branch_id])
-    @branch = collab_project.branches.new(branch_params)
+    #parent_branch = Branch.find_by(id: params[:branch_id])
+    #@branch = collab_project.branches.new(branch_params)
+    @branch = collab_project.branches.new(name: params[:branch][:name], purpose: params[:branch][:purpose], creator_id: Collaborator.find_by(admin_id: current_admin.id, collab_id: collab_project.id).id, parent_id: params[:branch_id])
     if @branch.save
-      @branch.add_creator(current_admin)
-      if parent_branch
-        puts 'Parent Branch Exists!'
-        @branch.add_parent_branch(parent_branch)
-      end
+      #@branch.add_creator(current_admin)
+      #if parent_branch
+      #  puts 'Parent Branch Exists!'
+      #  @branch.add_parent_branch(parent_branch)
+      #end
       flash[:notice] = "Successfully created Branch!"
       redirect_to collab_project_branch_path(@branch.collabproject, @branch)
     else
       flash[:alert] = "Error creating new Branch!"
       render :new
     end
+  end
+
+  def update
+    @branch = Branch.find(params[:id])
+    if @branch.update_attributes(branch_params)
+      flash[:success] = "Successfully updated Branch!"
+    else
+      flash[:alert] = "Error updating Branch!"
+    end
+    redirect_to collab_project_branch_path(@branch.collabproject, @branch)
   end
 
   def show
@@ -51,6 +64,13 @@ include CollaboratorHelper
 
   def branch_params
     params.require(:branch).permit(:name, :purpose, :order)
+  end
+
+  def load_activities
+    if current_admin
+      relevent_activities = PublicActivity::Activity.where("collab_id in (:x)", :x => current_admin.collaborators.collab_ids).order('created_at DESC').limit(20).includes(:owner, :trackable)
+      load_activities_hash( relevent_activities )
+    end
   end
 
 end

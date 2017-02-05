@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activity:
+    comment:
+      create: '  commented on the branch'
+      destroy: '  has removed a comment on the branch'
+      update: '  has edited a comment on the branch'

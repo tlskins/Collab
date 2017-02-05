@@ -1,0 +1,26 @@
+<div class="col-sm-3">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class='page-header'>
+        <small>Recent Activity</small>
+      </h1>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <% @activities_array.each do |activity_hash| %>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-<%= activity_hash.fetch('glyphicon') %>"></span>
+        <strong><%= activity_hash.fetch('owner') %></strong> <%= activity_hash.fetch('text') %>
+        <% if activity_hash.fetch('link') == nil %>
+          <%= activity_hash.fetch('name') %>
+        <% else %>
+          <%= link_to activity_hash.fetch('name'), activity_hash.fetch('link') %>
+        <% end %>
+       	in Collab <strong><%= activity_hash.fetch('collab_name') ? activity_hash.fetch('collab_name') : nil %></strong>
+        <%= time_ago_in_words(activity_hash.fetch('created_at')) + ' ago' %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

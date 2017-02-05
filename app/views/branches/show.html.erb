@@ -6,7 +6,8 @@
 
         <% if @is_current_admin_collaborator %>
         <p>
-          <a href='#' class="btn btn-primary">Edit Branch Details</a>
+          <%= link_to "Delete Branch", collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.id), method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary" %>
+          <%= render('branches/edit_branch') %>
           <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Branch</a>
           <%= render('branches/add_leaf') %>
         </p>

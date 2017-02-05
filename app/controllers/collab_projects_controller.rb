@@ -1,4 +1,6 @@
 class CollabProjectsController < ApplicationController
+  before_action :load_activities, only: [:index, :show, :new, :edit]
+  include PublicActivityHelper
 
   def index
     if current_admin
@@ -13,6 +15,16 @@ class CollabProjectsController < ApplicationController
   def new
     puts 'collabproj controller new called'
     @collab_project = CollabProject.new
+  end
+
+  def update
+    @collab_project = CollabProject.find(params[:id])
+    if @collab_project.update_attributes(collab_project_params)
+      flash[:success] = "Successfully updated Collab!"
+    else
+      flash[:alert] = "Error updating Collab!"
+    end
+    redirect_to collab_project_path(@collab_project)
   end
 
   def create
@@ -37,6 +49,13 @@ class CollabProjectsController < ApplicationController
 
   def collab_project_params
     params.require(:collab_project).permit(:name, :description)
+  end
+
+  def load_activities
+    if current_admin
+      relevent_activities = PublicActivity::Activity.where("collab_id in (:x)", :x => current_admin.collaborators.collab_ids).order('created_at DESC').limit(20).includes(:owner, :trackable) 
+      load_activities_hash( relevent_activities )
+    end
   end
 
 end

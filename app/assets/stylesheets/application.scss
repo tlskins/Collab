@@ -23,3 +23,16 @@
 
 /* 5 levels nesting */
 .replies .replies .replies .replies .replies {margin-left: 0;}
+
+/* Notifications */
+.glyphicon-update {
+  @extend .glyphicon-edit;
+}
+
+.glyphicon-create {
+  @extend .glyphicon-plus;
+}
+
+.glyphicon-destroy {
+  @extend .glyphicon-remove;
+}

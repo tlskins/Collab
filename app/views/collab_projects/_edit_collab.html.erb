@@ -1,0 +1,37 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditCollab">Edit Collab Details</button>
+
+<!-- Modal -->
+<div id="myModalEditCollab" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Collab</h4>
+      </div>
+
+      <%= form_for(@collab_project, url: collab_project_path(:collab_project_id => @collab_project.id), html: {multipart: :true, class: "form"}) do |f| %>
+        <div class="modal-body">
+
+         <div class="form-group">
+           <%= f.label :name %><br />
+           <%= f.text_field :name, autofocus: true, class: "form-control" %>
+         </div>
+
+         <div class="form-group">
+           <%= f.label :description %><br />
+	   <%= f.text_area :description, class: "form-control", rows: "5" %>
+         </div>
+
+          <%= f.submit 'Edit Collab', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

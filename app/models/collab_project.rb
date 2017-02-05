@@ -1,4 +1,10 @@
 class CollabProject < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked owner: Proc.new { |controller, model| controller.controller_current_admin ? controller.controller_current_admin : nil },
+        name: Proc.new { |controller, model| model.name },
+        collab_id: Proc.new { |controller, model| model.id },
+        collab_name: Proc.new { |controller, model| model.name }
+
   has_many :branches, class_name: "Branch", foreign_key: :collab_id, dependent: :destroy
   has_many :attached_branches, -> { where attached: true }, class_name: "Branch", foreign_key: :collab_id
   has_many :unattached_branches, -> { where attached: false }, class_name: "Branch", foreign_key: :collab_id

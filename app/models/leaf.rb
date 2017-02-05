@@ -1,4 +1,7 @@
 class Leaf < ActiveRecord::Base
+ include PublicActivity::Model
+  tracked owner: Proc.new { |controller, model| controller.controller_current_admin ? controller.controller_current_admin : nil }
+
   belongs_to :branch
   has_one :source_youtube
   has_one :source_text

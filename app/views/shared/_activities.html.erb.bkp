@@ -1,0 +1,45 @@
+<div class="col-sm-3">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class='page-header'>
+        <small>Recent Activity</small>
+      </h1>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <% @activities.each do |activity| %>
+      <li class="list-group-item">
+        <span class="glyphicon glyphicon-<%= activity.key.match(/\.(.*)/)[1] %>"></span>
+        <strong><%= activity.owner ? activity.owner.name : 'Guest' %></strong>
+
+
+        <!--<%= render_activity activity, display: :i18n %>-->
+        <% if activity and (activity.trackable_type == 'Branch' or activity.trackable_type == 'CollabProject') %>
+          <%= activity.key.slice!(/[.].*/)[1..-1] %> the <%= activity.trackable_type %> 
+        <% elsif activity %>
+	  <%= activity.key.slice!(/[.].*/)[1..-1] %> a <%= activity.trackable_type %> on the Branch
+        <% end %>
+
+
+        <% if activity.trackable and activity.trackable_type == 'Branch' and activity.trackable.collabproject %>
+          <%= link_to activity.trackable.name, 
+	  	collab_project_branch_path(:collab_project_id => activity.trackable.collabproject.id, :id => activity.trackable.id) %><br />
+        <% elsif activity.trackable and activity.trackable_type.start_with?('Source') and activity.trackable.leaf %>
+          <%= link_to activity.trackable.leaf.branch.name, 
+		collab_project_branch_path(:collab_project_id => activity.trackable.leaf.branch.collabproject.id, :id => activity.trackable.leaf.branch.id) %><br />
+        <% elsif activity.trackable and activity.trackable_type == 'Comment' and activity.trackable.branch %>
+	  <%= link_to activity.trackable.branch.name, 
+		collab_project_branch_path(:collab_project_id => activity.trackable.branch.collabproject.id, :id => activity.trackable.branch.id) %><br />
+        <% elsif activity.trackable and activity.trackable_type == 'CollabProject' %>
+	  <%= link_to activity.trackable.name,
+                collab_project_path(:id => activity.trackable.id) %><br />
+        <% else %>
+          with unknown name<br />
+        <% end %>
+        <%= time_ago_in_words(activity.created_at) + ' ago' %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

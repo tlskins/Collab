@@ -4,7 +4,8 @@ class LeafsController < ApplicationController
   end
 
   def create
-    @leaf = Branch.find(params[:branch_id]).leaves.new(leaf_params)
+    @leaf = Branch.find(params[:branch_id]).leaves.new
+
     if @leaf.save
       if params[:text]
         @leaf.create_source_text(text: params[:text])
@@ -29,12 +30,6 @@ class LeafsController < ApplicationController
   def show
     @leaf = Leaf.find(params[:id])
     @source = @leaf.source
-  end
-
-  private 
-
-  def leaf_params
-    params.require(:leaf).permit(:name, :branch_id, :order)
   end
 
 end

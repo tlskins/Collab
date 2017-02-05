@@ -8,11 +8,11 @@
       <div class="card-block">
 
 <ul class="nav nav-tabs" id="dashboard_products">
-  <li class="active"><a href="#leaf_youtube" data-target="#leaf_youtube" data-toggle="tab"> Youtube </a></li>
-  <li><a href="#leaf_text" data-target="#leaf_text" data-toggle="tab"> Text </a></li>
+  <li class="active"><a href="#leaf_text" data-target="#leaf_text" data-toggle="tab"> Text </a></li>
+  <li><a href="#leaf_youtube" data-target="#leaf_youtube" data-toggle="tab"> Youtube </a></li>
 </ul>
 <div class="tab-content">
-  <div class="tab-pane active" id="leaf_youtube">
+  <div class="tab-pane" id="leaf_youtube">
 
     <% if @current_leaf.source_youtube %>
       <div class="card">
@@ -31,7 +31,7 @@
     <% end %>
 
   </div>
-  <div class="tab-pane" id="leaf_text" >
+  <div class="tab-pane active" id="leaf_text" >
 
     <% if @current_leaf.source_text %>  
       <div class="card">

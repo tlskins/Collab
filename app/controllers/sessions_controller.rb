@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+
   def create
     user = User.from_omniauth(request.env['omniauth.auth'])
     session[:user_id] = user.id
@@ -11,4 +12,7 @@ class SessionsController < ApplicationController
     flash[:success] = "Goodbye!"
     redirect_to root_url
   end
+
+  private 
+
 end

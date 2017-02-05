@@ -13,6 +13,10 @@
         <%= branch.purpose.to_s %><br />
         <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br /><br />
         <a class="btn btn-primary btn-sm" href=<%= collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>>Goto Branch<span class="glyphicon glyphicon-chevron-right"></span></a><br /><br />
+        <% if branch.creator.admin.id == current_admin.id %>
+          <%= link_to "delete branch", collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id), method: :delete, data: { confirm: "You sure?" } %>
+        <% end %>
+        <br /><br />
       </div>
     </div>
   </div>
