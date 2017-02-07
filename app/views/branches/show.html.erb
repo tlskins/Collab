@@ -18,8 +18,8 @@
 
 <div class="container">
   <div class="col-md-10 col-md-offset-1">
-    <% if @current_leaf %>
-      <%= render @current_leaf %>
+    <% if @all_leaves %>
+      <%= render 'leafs/display_leafs' %>
     <% end %>
   </div>
 </div>

@@ -16,11 +16,6 @@ class BranchesController < ApplicationController
     #@branch = collab_project.branches.new(branch_params)
     @branch = collab_project.branches.new(name: params[:branch][:name], purpose: params[:branch][:purpose], creator_id: Collaborator.find_by(admin_id: current_admin.id, collab_id: collab_project.id).id, parent_id: params[:branch_id])
     if @branch.save
-      #@branch.add_creator(current_admin)
-      #if parent_branch
-      #  puts 'Parent Branch Exists!'
-      #  @branch.add_parent_branch(parent_branch)
-      #end
       flash[:notice] = "Successfully created Branch!"
       redirect_to collab_project_branch_path(@branch.collabproject, @branch)
     else
@@ -42,10 +37,9 @@ class BranchesController < ApplicationController
   def show
     @branch = Branch.find(params[:id])
     @collab_project = @branch.collabproject
-    @branch.leaves ? @current_leaf = @branch.leaves.last : @current_leaf = nil
+    @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.includes(:leafable)
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
     @leaf = Branch.find(params[:id]).leaves.new
-    @source_text = @leaf.build_source_text
     @comment = Comment.new(parent_id: params[:parent_id])
     @comments = @branch.comments.limit(18).includes(collaborator: [:admin]).hash_tree
     @is_current_admin_collaborator = current_admin_collaborator?(@collab_project.id)

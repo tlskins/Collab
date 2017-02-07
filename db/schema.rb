@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205054330) do
+ActiveRecord::Schema.define(version: 20170207002835) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -124,12 +124,15 @@ ActiveRecord::Schema.define(version: 20170205054330) do
   end
 
   create_table "leafs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "branch_id"
     t.string   "name"
     t.integer  "creator_id"
     t.integer  "order"
+    t.integer  "leafable_id"
+    t.string   "leafable_type"
+    t.string   "title"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -144,7 +147,6 @@ ActiveRecord::Schema.define(version: 20170205054330) do
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "leaf_id"
   end
 
   create_table "source_youtubes", force: :cascade do |t|
@@ -156,7 +158,6 @@ ActiveRecord::Schema.define(version: 20170205054330) do
     t.integer  "dislikes"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "leaf_id"
   end
 
   create_table "users", force: :cascade do |t|

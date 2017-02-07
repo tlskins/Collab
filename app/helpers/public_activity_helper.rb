@@ -7,6 +7,15 @@ module PublicActivityHelper
       current_activity = {}
       action = a.key.match(/\.(.*)/)[1]
 
+      #Add CSS Class
+      if a.created_at > (Time.now - 5.minutes)
+        current_activity.store("css class", "list-group-item-warning")
+      elsif a.created_at  > (Time.now - 1.day)
+        current_activity.store("css class", "list-group-item-info")
+      else
+        current_activity.store("css class", "")
+      end
+
       #Add glyphicon
       current_activity.store("glyphicon", action)
 
@@ -29,12 +38,16 @@ module PublicActivityHelper
       #Add link
       if (a.trackable and a.trackable_type == 'Branch' and a.trackable.collabproject)
         current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.collabproject.id, :id => a.trackable.id) )
+
       elsif (a.trackable and a.trackable_type.start_with?('Source') and a.trackable.leaf)
         current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.leaf.branch.collabproject.id, :id => a.trackable.leaf.branch.id) )
+
       elsif (a.trackable and a.trackable_type == 'Comment' and a.trackable.branch)
         current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.branch.collabproject.id, :id => a.trackable.branch.id) )
+
       elsif (a.trackable and a.trackable_type == 'CollabProject')
         current_activity.store( "link", collab_project_path(:id => a.trackable.id) )
+
       else
         current_activity.store( "link", nil )
       end

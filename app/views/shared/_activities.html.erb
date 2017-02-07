@@ -7,9 +7,10 @@
     </div>
   </div>
 
+
   <ul class="list-group">
     <% @activities_array.each do |activity_hash| %>
-      <li class="list-group-item">
+      <li class="list-group-item <%= activity_hash.fetch('css class') %>">
         <span class="glyphicon glyphicon-<%= activity_hash.fetch('glyphicon') %>"></span>
         <strong><%= activity_hash.fetch('owner') %></strong> <%= activity_hash.fetch('text') %>
         <% if activity_hash.fetch('link') == nil %>

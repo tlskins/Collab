@@ -1,0 +1,52 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalEditLeaf">Edit Leaf</button>
+
+<!-- Modal -->
+<div id="myModalEditLeaf" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Leaf</h4>
+      </div>
+
+      <%= form_for(@current_leaf, url: collab_project_branch_edit_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
+        <div class="modal-body">
+
+        <!-- Form for creating a Text source -->
+          <div class="form-group col-lg-12 text-center">
+            <%= f.label :text, 'text' %><br />
+            <% if @current_leaf.source_text %>
+              <%= text_area_tag 'text', @current_leaf.source_text.text, class: 'form-control' %><br />
+            <% else %>
+              <%= text_area_tag 'text', nil, class: 'form-control' %><br />
+            <% end %>
+          </div>
+
+        <!-- Form for creating a Youtube source -->
+          <div class="form-group col-lg-12 text-center">
+            <%= f.label :youtube, 'youtube'  %><br />
+            <% if @current_leaf.source_youtube %>
+              <%= text_field_tag :link, @current_leaf.source_youtube.link,  class: 'form-control' %><br />
+            <% else %>
+              <%= text_field_tag :link, nil,  class: 'form-control' %><br />
+            <% end %>
+            <span class="help-block">A link to the video on YouTube.</span><br />
+          </div>
+
+          <div class="form-group col-lg-12 text-center">
+            <%= hidden_field_tag 'leaf_id', @current_leaf.id %>
+            <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
+          </div>
+
+        </div>
+      <% end %>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

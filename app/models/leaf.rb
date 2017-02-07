@@ -3,22 +3,25 @@ class Leaf < ActiveRecord::Base
   tracked owner: Proc.new { |controller, model| controller.controller_current_admin ? controller.controller_current_admin : nil }
 
   belongs_to :branch
-  has_one :source_youtube
-  has_one :source_text
+  belongs_to :leafable, polymorphic: true, dependent: :destroy
+
+  def add_to_branch(branch_id)
+    update_attributes(branch_id: branch_id)
+  end
+
+  def update_title(title)
+    update_attributes(title: title)
+  end
 
   def update_link(update_link)
-    if source_youtube
-      source_youtube.update_link(update_link)
-    else
-      self.create_source_youtube(link: update_link)
+    if leafable.class == 'SourceYoutube'
+      leafable.update_link(update_link)
     end
   end
 
   def update_text(update_text)
-    if source_text
-      source_text.update_text(update_text)
-    else
-      self.create_source_text(text: update_text)
+    if leafable.class == 'SourceText'
+      leafable.update_text(update_text)
     end
   end
 
