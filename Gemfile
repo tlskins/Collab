@@ -55,6 +55,11 @@ gem 'autoprefixer-rails'
 gem 'public_activity'
 gem 'omniauth-facebook'
 
+#puma webserver
+gem 'puma'
+gem 'rails_12factor', group: :production
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
