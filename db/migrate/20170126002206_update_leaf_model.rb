@@ -12,6 +12,5 @@ class UpdateLeafModel < ActiveRecord::Migration
     remove_column :leafs, :uid, :string
     remove_column :leafs, :description, :string
     remove_column :leafs, :length, :integer
-    remove_column :leafs, :link, :string
   end
 end
