@@ -11,6 +11,7 @@
         <h4 class="modal-title">Create Leaf</h4>
       </div>
 
+      <%= form_for(@leaf, url: collab_project_branch_add_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
         <div class="modal-body">
 
           <ul class="nav nav-tabs" id="dashboard_leaf_data_types">
@@ -23,35 +24,23 @@
               <!-- Form for creating a Youtube source -->
               <div class="form-group col-lg-12 text-center">
                 <br /><br />
-                <%= form_for(@leaf, url: collab_project_branch_add_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
-                  <%= f.label :youtube_title, 'leaf title (optional)'  %><br />
-                  <%= text_field_tag :youtube_title, nil,  class: 'form-control' %><br />
+                <%= f.label :youtube_title, 'leaf title (optional)'  %><br />
+                <%= text_field_tag :youtube_title, nil,  class: 'form-control' %><br />
 
-                  <%= f.label :youtube, 'youtube'  %><br />
-                  <%= text_field_tag :link, nil,  class: 'form-control' %><br />
-                  <span class="help-block">A link to the video on YouTube.</span><br />
-
-                 <div class="form-group col-lg-12 text-center">
-                   <%= f.submit 'Create Leaf', class: 'btn btn-primary' %>
-                 </div>
-                <% end %>
+                <%= f.label :youtube, 'youtube'  %><br />
+                <%= text_field_tag :link, nil,  class: 'form-control' %><br />
+                <span class="help-block">A link to the video on YouTube.</span><br />
               </div>
 	    </div>
 	    <div class="tab-pane active" id="leaf_text_type" >
               <!-- Form for creating a Text source -->
               <div class="form-group col-lg-12 text-center">
                 <br /><br />
-                <%= form_for(@leaf, url: collab_project_branch_add_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |t| %>
-                  <%= t.label :text_title, 'leaf title (optional)'  %><br />
-                  <%= text_field_tag :text_title, nil,  class: 'form-control' %><br />
+                <%= f.label :text_title, 'leaf title (optional)'  %><br />
+                <%= text_field_tag :text_title, nil,  class: 'form-control' %><br />
 
-                  <%= t.label :text, 'text' %><br />
-                  <%= text_area_tag 'text', nil,  class: 'form-control' %><br />
-
-                  <div class="form-group col-lg-12 text-center">
-                    <%= t.submit 'Create Leaf', class: 'btn btn-primary' %>
-                  </div>
-                <% end %>
+                <%= f.label :text, 'text' %><br />
+                <%= text_area_tag 'text', nil,  class: 'form-control' %><br />
               </div>
 	    </div>
             <div class="tab-pane" id="leaf_youtube_upload" >
@@ -74,8 +63,6 @@
  	            <%= v.text_area :description, class: 'form-control', cols: 3 %>
 	          </div>
 
-	         <%= hidden_field_tag 'branch_id', @branch.id %>
-
 	          <%= v.submit 'Upload', class: 'btn btn-primary' %>
                 <% end %>
 	      <% else %>
@@ -83,7 +70,13 @@
 	      <% end %>
             </div>
           </div>
+
+          <div class="form-group col-lg-12 text-center">
+            <%= f.submit 'Create Leaf', class: 'btn btn-primary' %>
+          </div>
+
         </div>
+      <% end %>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -9,7 +9,7 @@ class LeafsController < ApplicationController
     branch = Branch.find(params[:branch_id])
     if params[:branch_id]
   
-      unless params[:text].empty?
+      unless !(params[:text]) or params[:text].empty?
         leaf_text = Branch.find(params[:branch_id]).leaves.create(title: params[:text_title])
         @leafable_text = SourceText.new(text: params[:text], leaf: leaf_text)
         if @leafable_text.save
@@ -19,7 +19,7 @@ class LeafsController < ApplicationController
         end
       end
 
-      unless params[:link].empty?
+      unless !(params[:link]) or params[:link].empty?
         leaf_yt = Branch.find(params[:branch_id]).leaves.create(title: params[:youtube_title])
         @leafable_yt = SourceYoutube.new(link: params[:link], leaf: leaf_yt)
         if @leafable_yt.save

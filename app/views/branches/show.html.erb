@@ -1,13 +1,20 @@
     <section class="jumbotron">
       <div class="container">
         <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br /><br />
+        <% if @branch.path %>
+	  <div class="row">
+	  <div class="col-sm-6 col-sm-offset-3">
+	  <div class="card card-outline-primary mb-3 text-center">
+	    <div class="card-block">
+	      <p class="lead"><b>Path: </b><%= @branch.path %></p>
+            </div>
+	  </div>
+	  </div>
+	  </div>
+        <% end %>
         <p class="lead"><%= @branch.purpose_html %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y') %></p>
-        <% if @branch.path %>
-	  <p class="lead text-muted"><b>Path: </b><%= @branch.path %></p>
-	<% end %>
-
-
+    
         <% if @is_current_admin_collaborator %>
         <hr class="my-4">
         <div class="container-block text-center">
