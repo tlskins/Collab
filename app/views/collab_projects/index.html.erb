@@ -1,10 +1,17 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Collaborate on ideas around the world!</h1>
-    <p>Click the button below to create a new Collab.</p>
-    <p>
-      <%= link_to 'Create Collab now!', new_collab_project_path, class: 'btn btn-primary btn-lg' %>
-    </p>
+    <% if current_admin %>
+      <p>Click the button below to create a new Collab.</p>
+      <p>
+        <%= link_to 'Create Collab now!', new_collab_project_path, class: 'btn btn-primary btn-lg' %>
+      </p>
+    <% else %>
+      <p>Create an account in order to start collaborating on any projects.<p>
+      <p>
+	<%= link_to 'Register now!', new_admin_session_path, class: 'btn btn-primary btn-lg' %>
+      </p>
+    <% end %>
   </div>
 </div>
 

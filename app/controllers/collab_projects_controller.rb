@@ -13,7 +13,6 @@ class CollabProjectsController < ApplicationController
   end
 
   def new
-    puts 'collabproj controller new called'
     @collab_project = CollabProject.new
   end
 
