@@ -11,4 +11,8 @@ class SourceText < ActiveRecord::Base
     update_attributes(text: update_text)
   end
 
+  def text_html
+    text.to_s.gsub(/\n/, '<br/>').html_safe
+  end
+
 end

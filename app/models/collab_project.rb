@@ -52,4 +52,8 @@ class CollabProject < ActiveRecord::Base
     return images
   end
 
+  def description_html
+    description.to_s.gsub(/\n/, '<br/>').html_safe
+  end
+
 end

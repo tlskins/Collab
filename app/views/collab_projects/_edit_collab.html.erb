@@ -26,6 +26,12 @@
 
           <%= f.submit 'Edit Collab', class: 'btn btn-primary' %>
         </div>
+
+          <% if current_admin and @collab_project.creator.admin.id == current_admin.id %>
+            <%= link_to "delete collab", collab_project_path(:collab_project_id => @collab_project.id), 
+		method: :delete, data: { confirm: "You sure?" } %>
+          <% end %>
+
       <% end %>
 
       <div class="modal-footer">

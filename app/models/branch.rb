@@ -1,5 +1,6 @@
 class Branch < ActiveRecord::Base
   include PublicActivity::Model
+  before_save :write_branch_path
   tracked owner: Proc.new { |controller, model| controller.controller_current_admin ? controller.controller_current_admin : nil },
 	name: Proc.new { |controller, model| model.name },
         collab_id: Proc.new { |controller, model| model.collab_id },
@@ -20,6 +21,27 @@ class Branch < ActiveRecord::Base
   def add_parent_branch(branch)
     unless self.parent_branch
       update_attributes(parent_id: branch.id)
+    end
+  end
+
+  def purpose_html
+    purpose.to_s.gsub(/\n/, '<br/>').html_safe
+  end
+
+  private
+
+  def write_branch_path
+    if parent_branch
+      if parent_branch.path
+	# Root second+ generation branches append parent name with parent path
+        self.path = parent_branch.path + parent_branch.name + '/'
+      else
+        # A Root branches first child pulls path from parent branch's name
+        self.path = parent_branch.name + '/'
+      end
+    # Root branch has no path
+    else
+      self.path = nil
     end
   end
 

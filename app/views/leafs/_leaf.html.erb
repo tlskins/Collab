@@ -14,7 +14,7 @@
         </div>
     <% elsif leaf.leafable.class.to_s == 'SourceText' %>
         <div class="card-block">
-          <p><%= leaf.leafable.text %></p>
+          <p><%= leaf.leafable.text_html %></p>
         </div>
     <% end %>
 

@@ -1,16 +1,26 @@
-    <section class="jumbotron text-center">
+    <section class="jumbotron">
       <div class="container">
-        <h1 class="jumbotron-heading"><b>Branch: </b><%= @branch.name %></h1>
-        <p class="lead text-muted"><b>Purpose: </b><%= @branch.purpose %></p>
-        <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y %H') %></p>
+        <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br /><br />
+        <p class="lead"><%= @branch.purpose_html %></p>
+        <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y') %></p>
+        <% if @branch.path %>
+	  <p class="lead text-muted"><b>Path: </b><%= @branch.path %></p>
+	<% end %>
+
 
         <% if @is_current_admin_collaborator %>
-        <p>
-          <%= link_to "Delete Branch", collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.id), method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary" %>
-          <%= render('branches/edit_branch') %>
-          <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Branch</a>
-          <%= render('branches/add_leaf') %>
-        </p>
+        <hr class="my-4">
+        <div class="container-block text-center">
+          <p>
+            <% if current_admin and @branch.creator.admin.id == current_admin.id %>
+              <%= link_to "Delete Branch", collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.id), 
+		method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary" %>
+            <% end %>
+            <%= render('branches/edit_branch') %>
+            <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Branch</a>
+            <%= render('branches/add_leaf') %>
+          </p>
+        </div>
         <% end %>
 
       </div>

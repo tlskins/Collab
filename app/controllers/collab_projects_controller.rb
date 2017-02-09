@@ -45,6 +45,15 @@ class CollabProjectsController < ApplicationController
     @branches = @collab_project.branches.where(parent_id: nil)
   end
 
+  def destroy
+    collab = CollabProject.find(params[:id])
+    if current_admin == collab.creator.admin
+      collab.destroy
+      flash[:success] = "Collab deleted"
+    end
+    redirect_to root_path
+  end
+
   private
 
   def collab_project_params

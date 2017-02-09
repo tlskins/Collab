@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 
-  <% if comment.collaborator.admin.id == current_admin.id %>
+  <% if current_admin and comment.collaborator.admin.id == current_admin.id %>
     <%= link_to "delete", collab_project_branch_comment_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :id => comment.id), method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
 
