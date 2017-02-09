@@ -41,12 +41,17 @@
               <!-- Form for creating a Text source -->
               <div class="form-group col-lg-12 text-center">
                 <br /><br />
-                <%= form_for(@leaf, url: collab_project_branch_add_leaf_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |t| %>
+                <%= form_for(@source_text, html: {multipart: :true, class: "form"}) do |t| %>
                   <%= t.label :text_title, 'leaf title (optional)'  %><br />
                   <%= text_field_tag :text_title, nil,  class: 'form-control' %><br />
 
                   <%= t.label :text, 'text' %><br />
-                  <%= text_area_tag 'text', nil,  class: 'form-control' %><br />
+
+                  <div class="text-left">
+                    <%= t.trix_editor :text %><br />
+ 		  </div>
+
+                  <%= hidden_field_tag 'branch_id', @branch.id %>
 
                   <div class="form-group col-lg-12 text-center">
                     <%= t.submit 'Create Leaf', class: 'btn btn-primary' %>

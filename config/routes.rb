@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :posts
   resources :videos, only: [:index, :new, :create]
   resources :video_uploads, only: [:new, :create]
+  resources :source_texts, only: [:create]
+
 
   resources :collab_projects do
     resources :branches
