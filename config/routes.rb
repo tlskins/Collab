@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'static_pages/about'
+  get 'static_pages/help'
+
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :admins
   root to: "collab_projects#index"
