@@ -12,4 +12,11 @@ class SourceTextsController < ApplicationController
     redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
   end
 
+  def edit_text
+    source_text = SourceText.find(params[:id])
+    source_text.update_text(params[:content_text])
+    source_text.leaf.update_title(params[:text_title])
+    redirect_to collab_project_branch_path(source_text.leaf.branch.collabproject, source_text.leaf.branch)
+  end
+
 end

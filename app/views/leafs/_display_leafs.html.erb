@@ -11,9 +11,8 @@
 	    <% if @all_leaves[0].title and !(@all_leaves[0].title.empty?) %>
               <b><%= @all_leaves[0].title %></b>
             <% else %>
-	      <b><%= @all_leaves[0].leafable.class.to_s[6..-1] %></b>
+	      <b><%= @all_leaves[0].leafable.class.to_s[6..-1] %> - <%= l.created_at.strftime('%m/%d/%Y') %></b>
             <% end %>
-	   - <%= @all_leaves[0].created_at.strftime('%m/%d/%Y') %>
 	  </a></li>
           <% if @all_leaves[1] %>
             <% @all_leaves[1..-1].each do |l| %>
@@ -21,9 +20,8 @@
               <% if l.title and !(l.title.empty?) %>
                 <b><%= l.title %></b>
               <% else %>
-                <b><%= l.leafable.class.to_s[6..-1] %></b>
+                <b><%= l.leafable.class.to_s[6..-1] %> - <%= l.created_at.strftime('%m/%d/%Y') %></b>
               <% end %>
-              - <%= l.created_at.strftime('%m/%d/%Y') %>
               </a></li>
             <% end %>
           <% end %>

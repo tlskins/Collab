@@ -1,7 +1,4 @@
 class VideoUploadsController < ApplicationController
-  def new
-    @video_upload = VideoUpload.new
-  end
 
   def create
     @video_upload = VideoUpload.new(title: params[:video_upload][:title],
@@ -16,7 +13,7 @@ class VideoUploadsController < ApplicationController
       else
         video = Video.create({link: "https://www.youtube.com/watch?v=#{uploaded_video.id}"})
         leaf_yt = branch.leaves.create(title: params[:video_upload][:title])
-        @leafable_yt = SourceYoutube.new(link: video.link, leaf: leaf_yt)
+        @leafable_yt = SourceYoutube.new(link: video.link, text: params[:video_upload][:description], leaf: leaf_yt)
         if @leafable_yt.save
           flash[:success] = 'Leaf Created!'
         else

@@ -13,4 +13,12 @@ class SourceYoutube < ActiveRecord::Base
     update_attributes(link: update_link)
   end
 
+  def update_text(update_text)
+    update_attributes(text: update_text)
+  end
+
+  def text_html
+    text.to_s.gsub(/\n/, '<br/>').html_safe
+  end
+
 end

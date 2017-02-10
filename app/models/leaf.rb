@@ -13,16 +13,16 @@ class Leaf < ActiveRecord::Base
     update_attributes(title: title)
   end
 
-  def update_link(update_link)
-    if leafable.class == 'SourceYoutube'
-      leafable.update_link(update_link)
-    end
-  end
+#  def update_link(update_link)
+#    if leafable.class == 'SourceYoutube'
+#      leafable.update_link(update_link)
+#    end
+#  end
 
-  def update_text(update_text)
-    if leafable.class == 'SourceText'
-      leafable.update_text(update_text)
-    end
-  end
+#  def update_text(update_text)
+#    if leafable.class == 'SourceText'
+#      leafable.update_text(update_text)
+#    end
+#  end
 
 end

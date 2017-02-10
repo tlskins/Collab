@@ -7,6 +7,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :collaborator
   belongs_to :branch
+
   acts_as_tree order: 'created_at DESC'
 
   def add_creator_by_admin(admin_id, collab_id)

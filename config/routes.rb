@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   resources :posts
   resources :videos, only: [:index, :new, :create]
   resources :video_uploads, only: [:new, :create]
-  resources :source_texts, only: [:create]
-
+  resources :source_texts, only: [:create, :edit]
+  resources :source_youtubes, only: [:create, :edit]
 
   resources :collab_projects do
     resources :branches
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       patch 'edit_leaf', to: 'leafs#edit'
       resources :comments, only: [:index, :new, :create, :destroy]
       get '/comments/new/(:parent_id, :branch_id)', to: 'comments#new', as: :new_comment
+      patch 'edit_yt', to: 'source_youtubes#edit_yt'
+      patch 'edit_text', to: 'source_texts#edit_text'
       resources :leafs
 
       resources :leafs do

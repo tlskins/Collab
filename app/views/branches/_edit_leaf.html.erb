@@ -11,45 +11,64 @@
         <h4 class="modal-title">Edit Leaf</h4>
       </div>
 
-      <%= form_for(leaf, url: collab_project_branch_edit_leaf_path(:branch_id => @branch.id, :id => leaf.id), html: {multipart: :true, class: "form"}) do |f| %>
         <div class="modal-body">
 
           <% if leaf.leafable.class.to_s == 'SourceYoutube' %>
-              <!-- Form for creating a Youtube source -->
+            <!-- Form for creating a Youtube source -->
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_yt_path(:branch_id => leaf.branch.id), html: {multipart: :true, class: "form"} do |f| %>
               <div class="form-group col-lg-12 text-center">
-                <%= f.label :youtube_title, 'leaf title (optional)'  %><br />
-                <%= text_field_tag :youtube_title, leaf.title, class: 'form-control' %><br />
+                <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
+                <%= text_field_tag :youtube_title, leaf.title,  class: 'form-control' %><br />
 
-                <%= f.label :youtube, 'youtube'  %><br />
-                <%= text_field_tag :link, leaf.leafable.link,  class: 'form-control' %><br />
+                <%= f.label :youtube, 'Youtube Link'  %><br />
                 <span class="help-block">A link to the video on YouTube.</span><br />
+                <%= f.text_field :link, :value => leaf.leafable.link %><br />
+
+                <%= f.label :text, 'Text' %><br />
+                <div class="text-left">
+                  <input id="<%= "current_text" + leaf.leafable.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_yt">
+                  <%= f.trix_editor :text, input: "current_text" + leaf.leafable.id.to_s %><br />
+                </div>
               </div>
-	  <% elsif leaf.leafable.class.to_s == 'SourceText' %>
-              <!-- Form for creating a Text source -->
+
+              <%= hidden_field_tag 'id', leaf.leafable.id %>
+
               <div class="form-group col-lg-12 text-center">
-                <%= f.label :text_title, 'leaf title (optional)'  %><br />
+                <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+	  <% elsif leaf.leafable.class.to_s == 'SourceText' %>
+            <!-- Form for creating a Text source -->
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_text_path(:branch_id => leaf.branch.id), html: {multipart: :true, class: "form"} do |f| %>
+              <div class="form-group col-lg-12 text-center">
+                <%= f.label :text_title, 'Leaf Title (Optional)'  %><br />
                 <%= text_field_tag :text_title, leaf.title,  class: 'form-control' %><br />
 
-                <%= f.label :text, 'text' %><br />
-                <%= text_area_tag 'text', leaf.leafable.text,  class: 'form-control' %><br />
+                <%= f.label :text, 'Text' %><br />
+                <div class="text-left">
+                  <input id="<%= "current_text" + leaf.leafable.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_text">
+                  <%= f.trix_editor :text, input: "current_text" + leaf.leafable.id.to_s %><br />
+                </div>
               </div>
-          <% end %>
 
-          <div class="form-group col-lg-12 text-center">
-            <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
-          </div>
+              <%= hidden_field_tag 'id', leaf.leafable.id %>
+
+              <div class="form-group col-lg-12 text-center">
+                <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
+              </div>
+            <% end %>
+          <% end %>
 
           <% if @is_current_admin_collaborator %>
             <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
 	  <% end %>
 
         </div>
-      <% end %>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>

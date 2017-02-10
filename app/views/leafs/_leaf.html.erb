@@ -9,7 +9,10 @@
             <h5><%= leaf.leafable.title %></h5>
             <b>Published at:</b> <%= leaf.leafable.published_at %><br />
             <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= leaf.leafable.likes %><br />
-            <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= leaf.leafable.dislikes %><br />
+            <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= leaf.leafable.dislikes %><br /><br />
+	    <div class="text-left">
+              <%= leaf.leafable.text_html %>
+            </div>
           </p>
         </div>
     <% elsif leaf.leafable.class.to_s == 'SourceText' %>
