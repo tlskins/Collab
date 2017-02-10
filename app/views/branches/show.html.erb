@@ -1,19 +1,14 @@
     <section class="jumbotron">
       <div class="container">
-        <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br /><br />
+        <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br />
+        <hr class="my3">
+        <h3 class="display-5"><%= @branch.purpose_html %></h3><br />
+	<p class="lead text-muted">
         <% if @branch.path %>
-	  <div class="row">
-	  <div class="col-sm-6 col-sm-offset-3">
-	  <div class="card card-outline-primary mb-3 text-center">
-	    <div class="card-block">
-	      <p class="lead"><b>Path: </b><%= @branch.path %></p>
-            </div>
-	  </div>
-	  </div>
-	  </div>
+  	  <b>Path: </b><%= @branch.path %><%= @branch.name %><br />
         <% end %>
-        <p class="lead"><%= @branch.purpose_html %></p>
-        <p class="lead text-muted"><b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y') %></p>
+        <b>Created at: </b><%= @branch.created_at.strftime('%-d %B %Y') %>
+	</p>
     
         <% if @is_current_admin_collaborator %>
         <hr class="my-4">
@@ -42,7 +37,7 @@
 </div>
 
 <div class="container">
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-6">
     <div class="row">
       <div class="col-lg-12">
         <h1 class='page-header'><%= @branch.name %>
@@ -51,18 +46,19 @@
       </div>
     </div>
     <% if @child_branches.any? %>
-      <div class="panel-group" id="accordion">
-        <% @child_branches.each do |branch| %>
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <%= render partial: 'branches/branch_show', locals: {branch: @child_branches[0]} %>
+        <% @child_branches[1..-1].each do |branch| %>
           <%= render branch %>
         <% end %>
-        <br /><br />
       </div>
     <% else %>
       <h3>No Child Branches<br /><br /></h3>
     <% end %>
+
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-6 col-sm-6">
     <%= render 'branches/add_display_comments' %>
   </div>
 </div>

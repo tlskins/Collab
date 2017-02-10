@@ -47,6 +47,16 @@ body {
   margin-bottom: 70px;
 }
 
+.nav-tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -moz-box;
+}
+.nav-tabs>li {
+  float: none;
+}
+
 #footer {
   position: absolute;
   bottom: 0;

@@ -5,7 +5,7 @@
   </div>
   <div class="card-block">
     <h4 class="card-title"><%= collab_project.name %></h4>
-    <p class="card-text"><%= collab_project.description[0..200] %><%= "..." if collab_project.description.length > 200 %><br /></p>
+    <p class="card-text"><%= raw(collab_project.description[0..200]) %><%= "..." if raw(collab_project.description).length > 200 %><br /></p>
     <a href="<%= collab_project_path(collab_project) %>" class="btn btn-primary">Go to Project</a>
   </div>
   <div class="card-footer text-muted">

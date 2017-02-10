@@ -1,17 +1,20 @@
 
-    <section class="jumbotron text-center">
+    <section class="jumbotron">
       <div class="container">
-        <h1 class="display-3"><b>Collab: </b><%= @collab_project.name %></h1>
-        <p class="lead"><b>Description: </b><%= @collab_project.description_html %></p>
+        <h1 class="display-3 text-center"><b>Collab<br /></b><%= @collab_project.name %></h1>
+	<hr class="my-3">
+        <h3 class="display-5"><br /><%= @collab_project.description_html %></h3>
         <p class="lead text-muted"><b>Collaborators: </b><%= @collaborators_list %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y %H') %></p>
 
         <% if current_admin_collaborator?(@collab_project.id) %>
         <p>
           <hr class="my-4">
-          <%= render 'collab_projects/edit_collab' %>
-          <a href=<%= new_collab_project_collaborator_path(@collab_project) %> class="btn btn-primary">Add Collaborator</a>
-          <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-primary">Create Branch</a>
+	  <div class="text-center">
+            <%= render 'collab_projects/edit_collab' %>
+            <a href=<%= new_collab_project_collaborator_path(@collab_project) %> class="btn btn-primary">Add Collaborator</a>
+            <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-primary">Create Branch</a>
+	  </div>
         </p>
  	<% end %>
 
@@ -22,7 +25,7 @@
   <div class="col-md-7">
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-md-12">
         <h1 class='page-header'><%= @collab_project.name %> collab
           <small>branches</small>
         </h1>
@@ -31,10 +34,10 @@
 
     <% if @branches.any? %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
-        <% @branches.each do |branch| %>
+        <%= render partial: 'branches/branch_show', locals: {branch: @branches[0]} %>
+        <% @branches[1..-1].each do |branch| %>
           <%= render branch %>
         <% end %>
-        <br /><br />
       </div>
     <% else %>
       <h3>No Branches<br /><br /></h3>
@@ -42,4 +45,4 @@
 
   </div>
 </div>
-
+</div>

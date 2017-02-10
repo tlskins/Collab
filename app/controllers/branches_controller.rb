@@ -12,8 +12,6 @@ class BranchesController < ApplicationController
 
   def create
     collab_project = CollabProject.find(params[:collab_project_id])
-    #parent_branch = Branch.find_by(id: params[:branch_id])
-    #@branch = collab_project.branches.new(branch_params)
     @branch = collab_project.branches.new(name: params[:branch][:name], purpose: params[:branch][:purpose], creator_id: Collaborator.find_by(admin_id: current_admin.id, collab_id: collab_project.id).id, parent_id: params[:branch_id])
     if @branch.save
       flash[:notice] = "Successfully created Branch!"

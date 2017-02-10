@@ -21,7 +21,7 @@
 
          <div class="form-group">
            <%= f.label :description %><br />
-	   <%= f.text_area :description, class: "form-control", rows: "5" %>
+	   <%= f.trix_editor :description %>
          </div>
 
           <%= f.submit 'Edit Collab', class: 'btn btn-primary' %>
