@@ -14,11 +14,13 @@
   <p class="alert"><%= alert %></p>
 
   <div class="container-fluid">
-    <div class="col-md-9 col-sm-9">
-      <%= yield %>
+    <div class="row">
+      <div class="col-md-9 col-sm-9">
+        <%= yield %>
+      </div>
     </div>
     <% if @activities_array %>
-      <%= render 'shared/activities' %>
+        <%= render 'shared/activities' %>
     <% end %>
   </div>
 

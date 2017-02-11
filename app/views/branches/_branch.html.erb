@@ -1,14 +1,15 @@
 
   <div class="card">
-    <div class="card-header" role="tab" id=<%= 'heading' + branch.id.to_s %>>
+
+    <div class="card-header" role="tab" id="<%= 'heading' + branch.id.to_s %>">
       <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + branch.id.to_s %> aria-expanded="false" aria-controls=<%= 'collapse' + branch.id.to_s %>>
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="<%= '#collapse' + branch.id.to_s %>" aria-expanded="false" aria-controls="<%= 'collapse' + branch.id.to_s %>">
           <%= branch.name.to_s %>
         </a>
       </h5>
     </div>
 
-    <div id=<%= 'collapse' + branch.id.to_s %> class="collapse" role="tabpanel" aria-labelledby=<%= 'heading' + branch.id.to_s %>>
+    <div id="<%= 'collapse' + branch.id.to_s %>" class="collapse" role="tabpanel" aria-labelledby="<%= 'heading' + branch.id.to_s %>">
       <div class="card-block">
         <p class="lead"><%= raw(branch.purpose_html[0..200]) %><%= "..." if raw(branch.purpose_html).length > 200 %></p><br />
         <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br /><br />
@@ -19,5 +20,6 @@
         <br /><br />
       </div>
     </div>
+
   </div>
 

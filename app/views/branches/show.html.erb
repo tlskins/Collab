@@ -37,14 +37,15 @@
 </div>
 
 <div class="container">
+  <div class="row">
   <div class="col-md-6 col-sm-6">
-    <div class="row">
+
       <div class="col-lg-12">
         <h1 class='page-header'><%= @branch.name %>
           <small>child branches</small>
         </h1>
       </div>
-    </div>
+
     <% if @child_branches.any? %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <%= render partial: 'branches/branch_show', locals: {branch: @child_branches[0]} %>
@@ -57,10 +58,14 @@
     <% end %>
 
   </div>
+  </div>
 
+  <div class="row">
   <div class="col-md-6 col-sm-6">
     <%= render 'branches/add_display_branch_comments' %>
   </div>
+  </div>
+
 </div>
 
 <%= render 'branches/branch_footer_nav' %>
