@@ -37,7 +37,7 @@ class BranchesController < ApplicationController
     @branch = Branch.find(params[:id])
     @collab_project = @branch.collabproject
     @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.limit(25).includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } )
-    @active_leaf = @all_leaves.first
+    @branch.leaves.empty? @acctive_leaf = nil : @active_leaf = @all_leaves.first
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
     @leaf = Branch.find(params[:id]).leaves.new
     @video_upload = VideoUpload.new
