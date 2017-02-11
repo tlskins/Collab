@@ -1,28 +1,56 @@
 class CommentsController < ApplicationController
 
-  def index
-    @comments = Comment.hash_tree
-  end
+#  def index
+#    @comments = Comment.hash_tree
+#  end
 
   def new
-    @branch = Branch.find(params[:branch_id])
-    @comment = Comment.new(parent_id: params[:parent_id])
+    if params[:parent_id]
+      @comment = Comment.new(parent_id: params[:parent_id])
+    end
   end
 
   def create
-    branch = Branch.find(params[:branch_id])
-    if params[:comment][:parent_id].to_i > 0
-      parent = Comment.find_by(id: params[:comment][:parent_id])
-      @comment = parent.children.build(parent_id: params[:comment][:parent_id], body: params[:comment][:body], branch_id: params[:branch_id], collaborator_id: Collaborator.find_by(collab_id: branch.collabproject.id, admin_id: current_admin.id).id)
-    else
-      @comment = branch.comments.new(body: params[:comment][:body], collaborator_id: Collaborator.find_by(collab_id: branch.collabproject.id, admin_id: current_admin.id).id)
+    @comment = Comment.new(comment_params)
+
+    # Branch comment
+    if params[:branch_id]
+      branch = Branch.find(params[:branch_id])
+      @comment.commentable = branch
+      @comment.collaborator = Collaborator.find_by(collab_id: branch.collabproject.id, admin_id: current_admin.id)
+      if @comment.save
+        flash[:success] = 'Your comment was successfully added!'
+      else
+        flash[:warning] = 'Your comment failed!'
+      end
+      redirect_to collab_project_branch_path(branch.collabproject, branch)
+
+    # Leaf comment
+    elsif params[:leaf_id]
+      leaf = Leaf.find(params[:leaf_id])
+      @comment.commentable = leaf
+      @comment.collaborator = Collaborator.find_by(collab_id: leaf.branch.collabproject.id, admin_id: current_admin.id)
+      if @comment.save
+        flash[:success] = 'Your comment was successfully added!'
+      else
+        flash[:warning] = 'Your comment failed!'
+      end
+      redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
+
+    # Collab comment
+    elsif params[:collabproject_id]
+      collab = CollabProject.find(params[:collabproject_id])
+      @comment.commentable = collab
+      @comment.collaborator = Collaborator.find_by(collab_id: collab.id, admin_id: current_admin.id)
+      if @comment.save
+        flash[:success] = 'Your comment was successfully added!'
+      else
+        flash[:warning] = 'Your comment failed!'
+      end
+      redirect_to collab_project_path(collab)
+
     end
 
-    if @comment.save
-      #@comment.add_creator_by_admin(current_admin.id, branch.collabproject.id)
-      flash[:success] = 'Your comment was successfully added!'
-    end
-    redirect_to collab_project_branch_path(branch.collabproject, branch)
   end
 
   def destroy
@@ -38,7 +66,7 @@ class CommentsController < ApplicationController
 private
 
   def comment_params
-    params.require(:comment).permit(:body, :branch_id)
+    params.require(:comment).permit(:body, :parent_id)
   end
 
 end

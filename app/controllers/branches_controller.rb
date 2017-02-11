@@ -33,16 +33,18 @@ class BranchesController < ApplicationController
   end
 
   def show
+    puts 'begin branch#show controller'
     @branch = Branch.find(params[:id])
     @collab_project = @branch.collabproject
-    @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.includes(:leafable)
+    @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.limit(25).includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } )
+    @active_leaf = @all_leaves.first
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
     @leaf = Branch.find(params[:id]).leaves.new
     @video_upload = VideoUpload.new
     @source_youtube = SourceYoutube.new
     @source_text = SourceText.new
-    @comment = Comment.new(parent_id: params[:parent_id])
-    @comments = @branch.comments.limit(18).includes(collaborator: [:admin]).hash_tree
+    @new_comment = Comment.new
+    @branch_comments = @branch.comments.limit(25).includes(collaborator: [:admin]).hash_tree
     @is_current_admin_collaborator = current_admin_collaborator?(@collab_project.id)
   end
 

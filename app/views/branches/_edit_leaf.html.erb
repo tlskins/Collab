@@ -15,7 +15,7 @@
 
           <% if leaf.leafable.class.to_s == 'SourceYoutube' %>
             <!-- Form for creating a Youtube source -->
-            <%= form_for leaf.leafable, url: collab_project_branch_edit_yt_path(:branch_id => leaf.branch.id), html: {multipart: :true, class: "form"} do |f| %>
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_yt_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"} do |f| %>
               <div class="form-group col-lg-12 text-center">
                 <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
                 <%= text_field_tag :youtube_title, leaf.title,  class: 'form-control' %><br />
@@ -39,7 +39,7 @@
             <% end %>
 	  <% elsif leaf.leafable.class.to_s == 'SourceText' %>
             <!-- Form for creating a Text source -->
-            <%= form_for leaf.leafable, url: collab_project_branch_edit_text_path(:branch_id => leaf.branch.id), html: {multipart: :true, class: "form"} do |f| %>
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_text_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"} do |f| %>
               <div class="form-group col-lg-12 text-center">
                 <%= f.label :text_title, 'Leaf Title (Optional)'  %><br />
                 <%= text_field_tag :text_title, leaf.title,  class: 'form-control' %><br />
@@ -60,7 +60,7 @@
           <% end %>
 
           <% if @is_current_admin_collaborator %>
-            <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
+            <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
 	  <% end %>
 
         </div>

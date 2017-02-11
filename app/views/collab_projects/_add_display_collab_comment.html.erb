@@ -1,0 +1,17 @@
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class='page-header'>
+          <small>comments</small>
+        </h1>
+      </div>
+    </div>
+
+    <% if @is_current_admin_collaborator %>
+    <p>
+      <%= render :partial => 'comments/add_comment', :locals => { :commentable_type => 'collabproject', :commentable_id => @collab_project.id} %>
+    </p>
+    <% end %>
+
+<% if @collab_comments %>
+  <%= comments_tree_for @collab_comments %>
+<% end %>

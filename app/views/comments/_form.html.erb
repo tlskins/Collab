@@ -1,4 +1,4 @@
-<%= form_for(@comment, url: collab_project_branch_comments_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"}) do |f| %>
+<%= form_for(@comment, url: comments_path(@comment), html: {multipart: :true, class: "form"}) do |f| %>
   <% if @comment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
@@ -12,6 +12,9 @@
   <% end %>
 
   <div class="form-group">
+    <% if @comment.parent %>
+      <%= hidden_field_tag @comment.parent.commentable.class.to_s.downcase + '_id', @comment.parent.commentable.id %>
+    <% end %>
     <%= f.hidden_field :parent_id %>
     <%= f.label :body %>
     <%= f.text_area :body, class: 'form-control', required: true %>

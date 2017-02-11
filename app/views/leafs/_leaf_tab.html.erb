@@ -1,0 +1,9 @@
+          <li class="<%= leaf_status %>">
+	    <a href="#leaf_<%= leaf.id %>" data-target="#leaf_<%= leaf.id %>" data-toggle="tab">
+            <% if leaf.title and !(leaf.title.empty?) %>
+              <b><%= leaf.title %></b>
+            <% else %>
+              <b><%= leaf.leafable.class.to_s[6..-1] %> - <%= leaf.created_at.strftime('%m/%d/%Y') %></b>
+            <% end %>
+            </a>
+	  </li>

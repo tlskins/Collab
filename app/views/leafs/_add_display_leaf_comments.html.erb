@@ -1,0 +1,37 @@
+<div id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="card">
+    
+    <!-- Collapse Heaer for Leaf Comments -->
+    <div class="card-header" role="tab" id=<%= 'heading' + leaf.id.to_s %>>
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + leaf.id.to_s %> aria-expanded="false" aria-controls=<%= 'collapse' + leaf.id.to_s %>>
+          Add / View Leaf Comments
+        </a>
+      </h5>
+    </div>
+
+   <!-- Begin Collapse Content for Leaf Comments -->
+    <div id=<%= 'collapse' + leaf.id.to_s %> class="collapse" role="tabpanel" aria-labelledby=<%= 'heading' + leaf.id.to_s %>>
+      <div class="card-block">
+
+	<!-- Add Leaf Comment -->
+        <% if @is_current_admin_collaborator %>
+        <p>
+          <%= render :partial => 'comments/add_comment', :locals => { :commentable_type => 'leaf', :commentable_id => leaf.id} %>
+        </p>
+        <% end %>
+
+	<!-- Display Leaf Comments -->
+	<div class="text-left">
+          <% if !(leaf.comments.empty?) %>
+            <%= comments_tree_for leaf.comments.hash_tree %>
+          <% else %>
+     	    <p>No Comments!</p>
+          <% end %>
+       	</div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

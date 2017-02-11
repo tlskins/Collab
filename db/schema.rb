@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210164125) do
+ActiveRecord::Schema.define(version: 20170210225032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,10 +111,11 @@ ActiveRecord::Schema.define(version: 20170210164125) do
   create_table "comments", force: :cascade do |t|
     t.integer  "collaborator_id"
     t.text     "body"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "branch_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "parent_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
   end
 
   create_table "leafs", force: :cascade do |t|

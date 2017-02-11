@@ -4,6 +4,7 @@ class Leaf < ActiveRecord::Base
 
   belongs_to :branch
   belongs_to :leafable, polymorphic: true, dependent: :destroy
+  has_many :comments, as: :commentable
 
   def add_to_branch(branch_id)
     update_attributes(branch_id: branch_id)

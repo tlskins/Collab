@@ -1,0 +1,49 @@
+
+<div class="card">
+  <p class="card-header text-center">Leaves</p>
+  <div class="card-block">
+
+    <div class="card">
+      <div class="card-block">
+
+        <ul class="nav nav-tabs" id="dashboard_leafs">
+          <li class="active"><a href="#leaf_<%= @all_leaves[0].id %>" data-target="#leaf_<%= @all_leaves[0].id %>" data-toggle="tab">
+	    <% if @all_leaves[0].title and !(@all_leaves[0].title.empty?) %>
+              <b><%= @all_leaves[0].title %></b>
+            <% else %>
+	      <b><%= @all_leaves[0].leafable.class.to_s[6..-1] %> - <%= l.created_at.strftime('%m/%d/%Y') %></b>
+            <% end %>
+	  </a></li>
+          <% if @all_leaves[1] %>
+            <% @all_leaves[1..-1].each do |l| %>
+              <li><a href="#leaf_<%= l.id %>" data-target="#leaf_<%= l.id %>" data-toggle="tab">
+              <% if l.title and !(l.title.empty?) %>
+                <b><%= l.title %></b>
+              <% else %>
+                <b><%= l.leafable.class.to_s[6..-1] %> - <%= l.created_at.strftime('%m/%d/%Y') %></b>
+              <% end %>
+              </a></li>
+            <% end %>
+          <% end %>
+        </ul>
+	<div class="tab-content">
+	  <div class="tab-pane active" id="leaf_<%= @all_leaves[0].id %>">
+            <%= render @all_leaves[0] %>
+          </div>
+          <% if @all_leaves[1] %>
+            <% @all_leaves[1..-1].each do |l| %>
+              <div class="tab-pane" id="leaf_<%= l.id %>">
+                <%= render l %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer text-muted text-center">
+    Leaves: <%= @all_leaves.count %>
+  </div>
+</div>

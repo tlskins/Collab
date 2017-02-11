@@ -8,10 +8,10 @@
 
     <% if @is_current_admin_collaborator %>
     <p>
-      <%= render 'comments/add_comment' %>
+      <%= render :partial => 'comments/add_comment', :locals => { :commentable_type => 'branch', :commentable_id => @branch.id} %>
     </p>
     <% end %>
 
-<% if @comments %>
-  <%= comments_tree_for @comments %>
+<% if @branch_comments %>
+  <%= comments_tree_for @branch_comments %>
 <% end %>

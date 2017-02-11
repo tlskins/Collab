@@ -1,7 +1,7 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="<%= "#myModalAddComment" + commentable_type.to_s + commentable_id.to_s %>">Add Comment</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalAddBranchComment">Add Comment</button>
 
 <!-- Modal -->
-<div id="<%= "myModalAddComment" + commentable_type.to_s + commentable_id.to_s %>" class="modal fade" role="dialog">
+<div id="myModalAddBranchComment" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -11,11 +11,11 @@
         <h4 class="modal-title">Add Comment</h4>
       </div>
 
-      <%= form_for(@new_comment, url: comments_path(@new_comment), html: {multipart: :true, class: "form"}) do |f| %>
+      <%= form_for(@branch_comment, url: comments_path(@branch_comment), html: {multipart: :true, class: "form"}) do |f| %>
         <div class="modal-body">
 
           <div class="form-group col-lg-12 text-center">
-            <%= hidden_field_tag commentable_type.to_s + '_id', commentable_id %>
+            <%= hidden_field_tag 'branch_id', @branch_comment.commentable.id %>
             <%= f.text_area :body, class: 'form-control', required: true %>
           </div>
 

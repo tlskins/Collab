@@ -21,11 +21,19 @@
         </div>
     <% end %>
 
-    <div class="card-footer text-muted text-center">
-      <p>Leaf Created: <%= leaf.created_at.strftime('%-d %B %Y') %></p>
+    <hr class="my-4">
+
+    <div class="card-block text-center">
+      <p>Leaf Created: <%= leaf.created_at.strftime('%-d %B %Y') %><br /><br />
       <% if @is_current_admin_collaborator %>
         <%= render :partial => 'branches/edit_leaf', :locals => { leaf: leaf } %>
       <% end %>
+      </p>
     </div>
+
+    <div class="card-footer text-center">
+      <%= render :partial => 'leafs/add_display_leaf_comments', :locals => { leaf: leaf } %>
+    </div>
+
 
   </div>

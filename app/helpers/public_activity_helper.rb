@@ -42,8 +42,14 @@ module PublicActivityHelper
       elsif (a.trackable and a.trackable_type.start_with?('Source') and a.trackable.leaf)
         current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.leaf.branch.collabproject.id, :id => a.trackable.leaf.branch.id) )
 
-      elsif (a.trackable and a.trackable_type == 'Comment' and a.trackable.branch)
-        current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.branch.collabproject.id, :id => a.trackable.branch.id) )
+      elsif (a.trackable and a.trackable_type == 'Comment' and a.trackable.commentable)
+	if a.trackable.commentable.class.to_s == 'Branch'
+          current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.commentable.collabproject.id, :id => a.trackable.commentable.id) )
+        elsif a.trackable.commentable.class.to_s == 'Leaf'
+          current_activity.store( "link", collab_project_branch_path(:collab_project_id => a.trackable.commentable.branch.collabproject.id, :id => a.trackable.commentable.branch.id) )
+        elsif a.trackable.commentable.class.to_s == 'CollabProject'
+          current_activity.store( "link", collab_project_path(a.trackable.commentable) )
+        end
 
       elsif (a.trackable and a.trackable_type == 'CollabProject')
         current_activity.store( "link", collab_project_path(:id => a.trackable.id) )

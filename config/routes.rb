@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :video_uploads, only: [:new, :create]
   resources :source_texts, only: [:create, :edit]
   resources :source_youtubes, only: [:create, :edit]
+  resources :comments, only: [:new, :create, :destroy]
 
   resources :collab_projects do
     resources :branches
@@ -20,8 +21,8 @@ Rails.application.routes.draw do
       get 'new_child_branch', to: 'branches#new'
       post 'add_leaf', to: 'leafs#create'
       patch 'edit_leaf', to: 'leafs#edit'
-      resources :comments, only: [:index, :new, :create, :destroy]
-      get '/comments/new/(:parent_id, :branch_id)', to: 'comments#new', as: :new_comment
+      #resources :comments, only: [:index, :new, :create, :destroy]
+      #get '/comments/new/(:parent_id, :branch_id)', to: 'comments#new', as: :new_comment
       patch 'edit_yt', to: 'source_youtubes#edit_yt'
       patch 'edit_text', to: 'source_texts#edit_text'
       resources :leafs

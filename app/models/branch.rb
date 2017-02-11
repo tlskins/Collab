@@ -11,7 +11,7 @@ class Branch < ActiveRecord::Base
   belongs_to :parent_branch, class_name: "Branch", foreign_key: :parent_id
   has_many :child_branches, class_name: "Branch", foreign_key: :parent_id, dependent: :destroy
   has_many :leaves, class_name: "Leaf", dependent: :destroy
-  has_many :comments
+  has_many :comments, as: :commentable
 
   def add_creator(admin)
     collaborator = Collaborator.find_by(admin_id: admin.id, collab_id: collabproject.id)
