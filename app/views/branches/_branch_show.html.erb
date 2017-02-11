@@ -11,7 +11,7 @@
 
     <div id=<%= 'collapse' + branch.id.to_s %> class="collapse show" role="tabpanel" aria-labelledby=<%= 'heading' + branch.id.to_s %>>
       <div class="card-block">
-        <p class="lead"><%= raw(branch.purpose_html[0..200]) %><%= "..." if raw(branch.purpose_html).length > 200 %></p><br />
+        <p class="lead"><%= sanitize branch.purpose[0..200] %></p><br />
         <b>Created on: </b><%= branch.created_at.strftime('%-d %B %Y') %><br /><br />
         <a class="btn btn-primary btn-sm" href=<%= collab_project_branch_path(:collab_project_id => branch.collabproject.id, :id => branch.id) %>>Goto Branch<span class="glyphicon glyphicon-chevron-right"></span></a><br /><br />
         <% if current_admin and branch.creator.admin.id == current_admin.id %>

@@ -1,15 +1,20 @@
-<div class="col-sm-3 col-lg-4 col-md-4">
+<div class="col-sm-4 col-lg-4 col-md-4">
 <div class="card text-center">
+
   <div class="card-header">
     <b>Created on: </b><%= collab_project.created_at.strftime('%-d %B %Y') %>
   </div>
+
   <div class="card-block">
     <h4 class="card-title"><%= collab_project.name %></h4>
-    <p class="card-text"><%= raw(collab_project.description[0..200]) %><%= "..." if raw(collab_project.description).length > 200 %><br /></p>
+    <p class="card-text"><%= sanitize collab_project.description[0..200] %><br /><br />
     <a href="<%= collab_project_path(collab_project) %>" class="btn btn-primary">Go to Project</a>
+    </p>
   </div>
-  <div class="card-footer text-muted">
+
+  <div class="card-footer">
     Collaborators:  <%= collab_project.list_collaborators %>
   </div>
+
 </div>
 </div>

@@ -24,8 +24,8 @@ class Branch < ActiveRecord::Base
     end
   end
 
-  def purpose_html
-    purpose.to_s.gsub(/\n/, '<br/>').html_safe
+  def purpose_html_safe
+    purpose.to_s.gsub('<div>', '').html_safe
   end
 
   private

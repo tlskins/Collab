@@ -2,7 +2,7 @@
       <div class="container">
         <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br />
         <hr class="my3">
-        <h3 class="display-5"><%= @branch.purpose_html %></h3><br />
+        <h3 class="display-5"><%= raw( @branch.purpose ) %></h3><br />
 	<p class="lead text-muted">
         <% if @branch.path %>
   	  <b>Path: </b><%= @branch.path %><%= @branch.name %><br />
@@ -28,23 +28,25 @@
       </div>
     </section>
 
+<!-- Display Branch Leave -->
 <div class="container">
-  <div class="col-md-10 col-md-offset-1">
-    <% if @all_leaves %>
-      <%= render 'leafs/display_leafs' %>
-    <% end %>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <% if @all_leaves %>
+        <%= render 'leafs/display_leafs' %>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <div class="container">
+  <!-- Child Branches -->
   <div class="row">
   <div class="col-md-6 col-sm-6">
 
-      <div class="col-lg-12">
-        <h1 class='page-header'><%= @branch.name %>
-          <small>child branches</small>
-        </h1>
-      </div>
+    <h1 class='page-header'><%= @branch.name %>
+      <small>child branches</small>
+    </h1>
 
     <% if @child_branches.any? %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -58,9 +60,8 @@
     <% end %>
 
   </div>
-  </div>
 
-  <div class="row">
+  <!-- Comments -->
   <div class="col-md-6 col-sm-6">
     <%= render 'branches/add_display_branch_comments' %>
   </div>
@@ -68,4 +69,7 @@
 
 </div>
 
-<%= render 'branches/branch_footer_nav' %>
+<!-- Branch Hierarchy Nav -->
+<div class="row">
+  <%= render 'branches/branch_footer_nav' %>
+</div>
