@@ -2,7 +2,7 @@
       <div class="container">
         <h1 class="display-3 text-center"><b>Collab<br /></b><%= @collab_project.name %></h1>
 	<hr class="my-3">
-        <h3 class="display-5"><br /><%= @collab_project.description_html %></h3>
+        <h3 class="lead"><br /><%= sanitize @collab_project.description %></p>
         <p class="lead text-muted"><b>Collaborators: </b><%= @collaborators_list %></p>
         <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y %H') %></p>
 
