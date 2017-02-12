@@ -23,7 +23,7 @@
 
     <hr class="my-4">
 
-    <div class="card-block text-center">
+    <div class="text-center">
       <p>Leaf Created: <%= leaf.created_at.strftime('%-d %B %Y') %><br /><br />
       <% if @is_current_admin_collaborator %>
         <%= render :partial => 'branches/edit_leaf', :locals => { leaf: leaf } %>

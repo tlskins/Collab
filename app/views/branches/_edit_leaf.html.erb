@@ -26,8 +26,8 @@
 
                 <%= f.label :text, 'Text' %><br />
                 <div class="text-left">
-                  <input id="<%= "current_text" + leaf.leafable.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_yt">
-                  <%= f.trix_editor :text, input: "current_text" + leaf.leafable.id.to_s %><br />
+                  <input id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_yt">
+                  <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
                 </div>
               </div>
 
@@ -46,8 +46,8 @@
 
                 <%= f.label :text, 'Text' %><br />
                 <div class="text-left">
-                  <input id="<%= "current_text" + leaf.leafable.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_text">
-                  <%= f.trix_editor :text, input: "current_text" + leaf.leafable.id.to_s %><br />
+                  <input id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_text">
+                  <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
                 </div>
               </div>
 
