@@ -18,7 +18,7 @@
   <% unless @collab_projects.empty? %>
     <div class="container">
       <div class="row">
-      <div class="col-md-12 col-sm-12">
+      <div class="col-xs-12">
         <h1 class='page-header'>Projects you are collaborating on</h1>
               
               <% @collab_projects.in_groups_of(3) do |group| %>
@@ -39,7 +39,7 @@
   <% unless @collab_projects_all.empty? %>
     <div class="container">
       <div class="row">
-      <div class="col-md-12 col-sm-12">
+      <div class="col-xs-12">
         <h1 class='page-header'>All Projects</h1>
 
               <% @collab_projects_all.in_groups_of(3) do |group| %>

@@ -21,7 +21,7 @@
           <div class="tab-content">
 	    <div class="tab-pane" id="leaf_youtube_type">
               <!-- Form for creating a Youtube source -->
-              <div class="form-group col-lg-12 text-center">
+              <div class="form-group col-lg-12 col-md-10 text-center">
                 <br /><br />
                 <%= form_for(@source_youtube, html: {multipart: :true, class: "form"}) do |f| %>
                   <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
@@ -38,7 +38,7 @@
 
                   <%= hidden_field_tag 'branch_id', @branch.id %>
 
-                 <div class="form-group col-lg-12 text-center">
+                 <div class="form-group col-lg-12 col-md-10 text-center">
                    <%= f.submit 'Create Leaf', class: 'btn btn-primary' %>
                  </div>
                 <% end %>
@@ -46,7 +46,7 @@
 	    </div>
 	    <div class="tab-pane active" id="leaf_text_type" >
               <!-- Form for creating a Text source -->
-              <div class="form-group col-lg-12 text-center">
+              <div class="form-group col-lg-12 col-md-10 text-center">
                 <br /><br />
                 <%= form_for(@source_text, html: {multipart: :true, class: "form"}) do |t| %>
                   <%= t.label :text_title, 'Leaf Title (Optional)'  %><br />
@@ -59,7 +59,7 @@
 
                   <%= hidden_field_tag 'branch_id', @branch.id %>
 
-                  <div class="form-group col-lg-12 text-center">
+                  <div class="form-group col-lg-12 col-md-10 text-center">
                     <%= t.submit 'Create Leaf', class: 'btn btn-primary' %>
                   </div>
                 <% end %>
@@ -70,25 +70,20 @@
               <!-- Form for uploading video to youtube -->
 	      <% if current_user %>
 	        <%= form_for @video_upload do |v| %>
-                  <div class="form-group">
+                  <div class="form-group col-lg-12 col-md-10 text-center">
                     <%= v.label :title %>
                     <%= v.text_field :title, class: 'form-control', required: true %>
-                  </div>
 
-                  <div class="form-group">
 	            <%= v.label :file %>
 	            <%= v.file_field :file, class: 'form-control', required: true %>
-	          </div>
 
-	          <div class="form-group">
 	            <%= v.label :description %>
  	            <%= v.text_area :description, class: 'form-control', cols: 3 %>
-	          </div>
 
-	         <%= hidden_field_tag 'branch_id', @branch.id %>
+       	            <%= hidden_field_tag 'branch_id', @branch.id %>
 
-	          <%= v.submit 'Upload', class: 'btn btn-primary' %>
-                  <span class="help-block">This may take a few minutes. Make sure you are connected to WIFI for uploading larger videos...</span><br />
+	            <%= v.submit 'Upload', class: 'btn btn-primary' %>
+                    <span class="help-block">This may take a few minutes. Make sure you are connected to WIFI for uploading larger videos...</span><br />
                 <% end %>
 	      <% else %>
 	        <p>Please <%= link_to 'sign in', '/auth/google_oauth2' %>.<br />This will connect with your Google / Youtube account and upload videos to your youtube account.<br /></p>
