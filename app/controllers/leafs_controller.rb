@@ -62,5 +62,14 @@ class LeafsController < ApplicationController
     redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
   end
 
+  def move_leaf
+    leaf = Leaf.find(params[:id])
+    if params[:target_branch_id]
+      leaf.add_to_branch(params[:target_branch_id])
+      leaf.save
+      leaf.reload
+    end
+    redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
+  end
 
 end

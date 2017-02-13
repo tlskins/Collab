@@ -35,6 +35,7 @@ class BranchesController < ApplicationController
   def show
     puts 'begin branch#show controller'
     @branch = Branch.find(params[:id])
+    @parent_branch = @branch.parent_branch
     @collab_project = @branch.collabproject
     @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.limit(25).includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } )
     @branch.leaves.empty? ? @active_leaf = nil : @active_leaf = @all_leaves.first

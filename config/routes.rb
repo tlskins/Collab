@@ -21,8 +21,7 @@ Rails.application.routes.draw do
       get 'new_child_branch', to: 'branches#new'
       post 'add_leaf', to: 'leafs#create'
       patch 'edit_leaf', to: 'leafs#edit'
-      #resources :comments, only: [:index, :new, :create, :destroy]
-      #get '/comments/new/(:parent_id, :branch_id)', to: 'comments#new', as: :new_comment
+      get 'move_leaf', to: 'leafs#move_leaf'
       patch 'edit_yt', to: 'source_youtubes#edit_yt'
       patch 'edit_text', to: 'source_texts#edit_text'
       resources :leafs

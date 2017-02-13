@@ -59,14 +59,36 @@
             <% end %>
           <% end %>
 
-          <% if @is_current_admin_collaborator %>
-            <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
-	  <% end %>
+	  <div class="dropdown">
+	    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Move Leaf to Another Branch</button>
+	    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <h6 class="dropdown-header">Parent Branch</h6>
+		<% if @parent_branch %>
+                  <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => @parent_branch.id) %>"><%= @parent_branch.name %></a>
+
+		<% end %>
+              <div class="dropdown-divider"></div>
+	      <h6 class="dropdown-header">Child Branch</h6>
+		<% if !(@branch.child_branches.empty?) %>
+		  <% @child_branches.pluck(:id, :name).each do |b| %>
+       	            <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => b[0]) %>"><%= b[1] %></a>
+		  <% end %>
+	        <% end %>
+	    </div>
+	  </div>
 
         </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="modal-footer text-center">
+	  <div class="col-md-6 col-sm-6 text-left">
+            <% if @is_current_admin_collaborator %>
+              <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @collab_project.id, 
+		:branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
+            <% end %>
+          </div>
+	  <div class="col-md-6 col-sm-6 text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	  </div>
       </div>
 
     </div>

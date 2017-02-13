@@ -28,6 +28,14 @@ class Branch < ActiveRecord::Base
     purpose.to_s.gsub('<div>', '').html_safe
   end
 
+#  def child_branches_array
+#    all_child_branches = []
+#    if !(self.child_branches.empty?)
+#      all_child_branches << self.child_branches.pluck(:id, :name)
+#    end
+#    return all_child_branches
+#  end
+
   private
 
   def write_branch_path
