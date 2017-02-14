@@ -3,7 +3,7 @@ class CollaboratorsController < ApplicationController
   def new
     @collab_project = CollabProject.find(params[:collab_project_id])
     if current_admin
-      @avail_collaborators = Admin.where("id not in (:x)", :x => CollabProject.find_by(id: params[:collab_project_id]).collaborators.ids)
+      @avail_collaborators = Admin.where("id not in (:x)", :x => CollabProject.find_by(id: params[:collab_project_id]).collaborators.admin_ids)
       @collaborator = @collab_project.collaborators.build
     end
   end

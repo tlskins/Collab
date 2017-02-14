@@ -9,6 +9,10 @@ class Collaborator < ActiveRecord::Base
     pluck(:id)
   end
 
+  def self.admin_ids
+    pluck(:admin_id)
+  end
+
   def self.collab_ids
     pluck(:collab_id)
   end
