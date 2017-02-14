@@ -1,10 +1,11 @@
 
 <div class="card">
   <h4 class="card-header text-muted text-center">
-    Leaves <span class="badge badge-success"><%= @leaf_count %></span>
+    <div class="row align-items-center">
+      <div class="col-sm-3">
     <!-- Leaf Pagination Nav -->
 <% if @pages > 1 %>
-<nav aria-label="Leaves Pagination">
+<nav class="pull-left" aria-label="Leaves Pagination">
   <ul class="pagination">
     <% if @current_page > 1 %>
       <li class="page-item">
@@ -29,6 +30,12 @@
 </nav>
 <% end %>
 <!-- End Leaf Pagination Nav -->
+      </div>
+      <div class="col-sm-6 text-center">
+        Leaves <span class="badge badge-success"><%= @leaf_count %></span>
+      </div>
+      <div class="col-sm-3"></div>
+      </div>
   </h4>
 
   <div class="card-block">

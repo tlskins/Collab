@@ -2,7 +2,7 @@
       <div class="container">
         <h1 class="display-3 text-center"><b>Branch</b><br /><%= @branch.name %></h1><br />
         <hr class="my3">
-        <p class="lead"><%= sanitize @branch.purpose %></p><br />
+        <p class="lead"><%= sanitize @branch.purpose.gsub('<div>','').gsub('</div>','') %></p><br />
 	<p class="lead text-muted">
         <% if @branch.path %>
   	  <b>Path: </b><%= @branch.path %><%= @branch.name %><br />
