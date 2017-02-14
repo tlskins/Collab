@@ -37,15 +37,26 @@ class BranchesController < ApplicationController
     @branch = Branch.find(params[:id])
     @parent_branch = @branch.parent_branch
     @collab_project = @branch.collabproject
-    @branch.leaves.empty? ? @all_leaves = nil : @all_leaves = @branch.leaves.order('created_at DESC').limit(25).includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } )
-    @branch.leaves.empty? ? @active_leaf = nil : @active_leaf = @all_leaves.first
+
+    # Leaf derivations
+    @current_page = params[:page].to_i
+    (@current_page = 1) if @current_page == 0
+    @leaf_count = @branch.leaves.count
+    @leaf_count == 0 ? @all_leaves = nil : @all_leaves = @branch.leaves.order('created_at DESC').includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } ).leaf_paginate(@current_page, 5)
+    @leaf_count == 0 ? @active_leaf = nil : @active_leaf = @all_leaves.first
+    @pages = (@leaf_count / 5.to_f).ceil
+
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil
+    @branch_comments = @branch.comments.limit(25).includes(collaborator: [:admin]).hash_tree
+
+    # New object preparation
     @leaf = Branch.find(params[:id]).leaves.new
     @video_upload = VideoUpload.new
     @source_youtube = SourceYoutube.new
     @source_text = SourceText.new
     @new_comment = Comment.new
-    @branch_comments = @branch.comments.limit(25).includes(collaborator: [:admin]).hash_tree
+
+    # Determine if user is a collaborator now to avoid this call in the view
     @is_current_admin_collaborator = current_admin_collaborator?(@collab_project.id)
   end
 
