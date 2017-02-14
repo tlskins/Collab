@@ -50,9 +50,8 @@
 
     <% if @child_branches.any? %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
-        <%= render partial: 'branches/branch_show', locals: {branch: @child_branches[0]} %>
-        <% @child_branches[1..-1].each do |branch| %>
-          <%= render branch %>
+        <% @child_branches.each do |branch| %>
+          <%= render partial: 'branches/branch_show', locals: {branch: branch} %>
         <% end %>
       </div>
     <% else %>

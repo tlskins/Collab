@@ -4,7 +4,7 @@
 	<hr class="my-3">
         <h3 class="lead"><br /><%= sanitize @collab_project.description %></p>
         <p class="lead text-muted"><b>Collaborators: </b><%= @collaborators_list %></p>
-        <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y %H') %></p>
+        <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y') %></p>
 
         <% if current_admin_collaborator?(@collab_project.id) %>
         <p>
@@ -31,9 +31,8 @@
 
     <% if @branches.any? %>
       <div id="accordion" role="tablist" aria-multiselectable="true">
-        <%= render partial: 'branches/branch_show', locals: {branch: @branches[0]} %>
-        <% @branches[1..-1].each do |branch| %>
-          <%= render branch %>
+        <% @branches.each do |branch| %>
+          <%= render partial: 'branches/branch_show', locals: {branch: branch} %>
         <% end %>
       </div>
     <% else %>

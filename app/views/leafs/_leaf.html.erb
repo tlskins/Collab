@@ -1,39 +1,35 @@
-  <div class="card">
-
+<div class="card">
+  <div class="card-block">
     <% if leaf.leafable.class.to_s == 'SourceYoutube' %>
-        <div class="card-block text-center">
-          <%= link_to image_tag("https://img.youtube.com/vi/#{leaf.leafable.uid}/mqdefault.jpg", alt: leaf.leafable.title,
+      <div class="text-center">
+        <%= link_to image_tag("https://img.youtube.com/vi/#{leaf.leafable.uid}/mqdefault.jpg", alt: leaf.leafable.title,
                                       class: 'img-rounded'),
                             "https://www.youtube.com/watch?v=#{leaf.leafable.uid}", target: '_blank' %>
-          <p class="card-text">
-            <h5><%= leaf.leafable.title %></h5>
-            <b>Published at:</b> <%= leaf.leafable.published_at %><br />
-            <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= leaf.leafable.likes %><br />
-            <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= leaf.leafable.dislikes %><br /><br />
-	    <div class="text-left">
-              <%= leaf.leafable.text_html %>
-            </div>
-          </p>
-        </div>
+        <p class="card-text">
+          <h5><%= leaf.leafable.title %></h5>
+          <b>Published:</b> <%= time_ago_in_words(leaf.leafable.published_at) + ' ago' %><br />
+          <span class="glyphicon glyphicon glyphicon-thumbs-up"></span> <%= leaf.leafable.likes %><br />
+          <span class="glyphicon glyphicon glyphicon-thumbs-down"></span> <%= leaf.leafable.dislikes %><br /><br />
+        </p>
+      </div>
+      <p class="card-text"><%= leaf.leafable.text_html %></p>
     <% elsif leaf.leafable.class.to_s == 'SourceText' %>
-        <div class="card-block">
-          <p><%= leaf.leafable.text_html %></p>
-        </div>
+      <p class="text-left"><%= leaf.leafable.text_html %></p>
     <% end %>
 
     <hr class="my-4">
-
     <div class="text-center">
       <p>Leaf Created: <%= leaf.created_at.strftime('%-d %B %Y') %><br /><br />
-      <% if @is_current_admin_collaborator %>
-        <%= render :partial => 'branches/edit_leaf', :locals => { leaf: leaf } %>
-      <% end %>
+        <% if @is_current_admin_collaborator %>
+          <%= render :partial => 'branches/edit_leaf', :locals => { leaf: leaf } %>
+        <% end %>
       </p>
     </div>
 
-    <div class="card-footer text-center">
-      <%= render :partial => 'leafs/add_display_leaf_comments', :locals => { leaf: leaf } %>
-    </div>
-
-
   </div>
+
+  <div class="card-footer text-center">
+    <%= render :partial => 'leafs/add_display_leaf_comments', :locals => { leaf: leaf } %>
+  </div>
+
+</div>
