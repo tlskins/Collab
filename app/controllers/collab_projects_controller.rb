@@ -42,7 +42,7 @@ class CollabProjectsController < ApplicationController
   def show
     @collab_project = CollabProject.find(params[:id])
     @collaborators_list = @collab_project.list_collaborators
-    @branches = @collab_project.branches.where(parent_id: nil)
+    @branches = @collab_project.branches.where(parent_id: nil).order('created_at ASC')
     @new_comment = Comment.new
     @collab_comments = @collab_project.comments.limit(18).includes(collaborator: [:admin]).hash_tree
     @is_current_admin_collaborator = current_admin_collaborator?(@collab_project.id)
