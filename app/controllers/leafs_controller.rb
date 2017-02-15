@@ -30,23 +30,23 @@ class LeafsController < ApplicationController
 #    redirect_to collab_project_branch_path(branch.collabproject, branch)
 #  end
 
-  def edit
-    @leaf = Leaf.find(params[:id])
-
-    if @leaf.leafable.class.to_s == 'SourceText'
-      @leaf.update_title(params[:text_title])
-      @leaf.update_text(params[:text])
-      flash[:success] = 'Leaf Updated!'
-    elsif @leaf.leafable.class.to_s == 'SourceYoutube' and params[:link]
-      @leaf.update_title(params[:youtube_title])
-      @leaf.update_link(params[:link])
-      flash[:success] = 'Leaf Updated!'
-    else
-      flash[:alert] = 'Leaf Updated failed!'
-    end
-
-    redirect_to collab_project_branch_path(@leaf.branch.collabproject, @leaf.branch)
-  end
+#  def edit
+#    @leaf = Leaf.find(params[:id])
+#
+#    if @leaf.leafable.class.to_s == 'SourceText'
+#      @leaf.update_title(params[:text_title])
+#      @leaf.update_text(params[:text])
+#      flash[:success] = 'Leaf Updated!'
+#    elsif @leaf.leafable.class.to_s == 'SourceYoutube' and params[:link]
+#      @leaf.update_title(params[:youtube_title])
+#      @leaf.update_link(params[:link])
+#      flash[:success] = 'Leaf Updated!'
+#    else
+#      flash[:alert] = 'Leaf Updated failed!'
+#    end
+#
+#    redirect_to collab_project_branch_path(@leaf.branch.collabproject, @leaf.branch, :page => params[:page], :active_leaf => params[:active_leaf])
+#  end
 
   def destroy
     leaf = Leaf.find(params[:id])

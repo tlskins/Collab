@@ -11,7 +11,8 @@
         <h4 class="modal-title">Add Comment</h4>
       </div>
 
-      <%= form_for(@new_comment, url: comments_path(@new_comment), html: {multipart: :true, class: "form"}) do |f| %>
+      <% @active_leaf ||= Leaf.new %>
+      <%= form_for(@new_comment, url: comments_path(@new_comment, :page => @current_page, :active_leaf => ( commentable_type == 'leaf' ? commentable_id : @active_leaf.id)), html: {multipart: :true, class: "form"}) do |f| %>
         <div class="modal-body">
 
           <div class="form-group col-lg-12 text-center">

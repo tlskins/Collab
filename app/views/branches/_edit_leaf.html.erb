@@ -11,85 +11,90 @@
         <h4 class="modal-title">Edit Leaf</h4>
       </div>
 
-        <div class="modal-body">
 
           <% if leaf.leafable.class.to_s == 'SourceYoutube' %>
             <!-- Form for creating a Youtube source -->
-            <%= form_for leaf.leafable, url: collab_project_branch_edit_yt_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"} do |f| %>
-              <div class="form-group col-lg-12 text-center">
-                <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
-                <%= text_field_tag :youtube_title, leaf.title,  class: 'form-control' %><br />
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_yt_path(:branch_id => @branch.id, :page => @current_page, :active_leaf => leaf.id), html: {multipart: :true, class: "form"} do |f| %>
+              <div class="modal-body">
 
-                <%= f.label :youtube, 'Youtube Link'  %><br />
-                <span class="help-block">A link to the video on YouTube.</span><br />
-                <%= f.text_field :link, :value => leaf.leafable.link %><br />
+	        <div class="form-group col-lg-12 text-center">
+		  <div class="form-group">
+                    <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
+                    <%= text_field_tag :youtube_title, leaf.title,  class: 'form-control' %><br />
 
-                <%= f.label :text, 'Text' %><br />
-                <div class="text-left">
-                  <input id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_yt">
-                  <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
+                    <%= f.label :youtube, 'Youtube Link'  %><br />
+                    <span class="help-block">A link to the video on YouTube.</span><br />
+                    <%= f.text_field :link, :value => leaf.leafable.link, class: 'form-control' %><br />
+
+                    <%= f.label :text, 'Text' %><br />
+                    <div class="text-left">
+                      <input class="text-left" id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_yt">
+                      <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
+		    </div>
+
+                    <%= hidden_field_tag 'id', leaf.leafable.id %>
+
+                    <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
+                  </div>
                 </div>
-              </div>
 
-              <%= hidden_field_tag 'id', leaf.leafable.id %>
-
-              <div class="form-group col-lg-12 text-center">
-                <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
-              </div>
-            <% end %>
+              </div><!-- end modal body -->
+            <% end %><!-- end edit yt form -->
 	  <% elsif leaf.leafable.class.to_s == 'SourceText' %>
             <!-- Form for creating a Text source -->
-            <%= form_for leaf.leafable, url: collab_project_branch_edit_text_path(:branch_id => @branch.id), html: {multipart: :true, class: "form"} do |f| %>
-              <div class="form-group col-lg-12 text-center">
-                <%= f.label :text_title, 'Leaf Title (Optional)'  %><br />
-                <%= text_field_tag :text_title, leaf.title,  class: 'form-control' %><br />
+            <%= form_for leaf.leafable, url: collab_project_branch_edit_text_path(:branch_id => @branch.id, :page => @current_page, :active_leaf => leaf.id), html: {multipart: :true, class: "form"} do |f| %>
+              <div class="modal-body">
 
-                <%= f.label :text, 'Text' %><br />
-                <div class="text-left">
-                  <input id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_text">
-                  <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
-                </div>
-              </div>
+                <div class="form-group col-lg-12 text-center">
+                  <div class="form-group">
+                    <%= f.label :text_title, 'Leaf Title (Optional)'  %><br />
+                    <%= text_field_tag :text_title, leaf.title,  class: 'form-control' %><br />
 
-              <%= hidden_field_tag 'id', leaf.leafable.id %>
+                    <%= f.label :text, 'Text' %><br />
+                    <div class="text-left">
+                      <input id="<%= "current_text" + leaf.id.to_s %>" value="<%= leaf.leafable.text %>" type="hidden" name="content_text">
+                      <%= f.trix_editor :text, input: "current_text" + leaf.id.to_s %><br />
+                    </div>
 
-              <div class="form-group col-lg-12 text-center">
-                <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
-              </div>
-            <% end %>
-          <% end %>
+                    <%= hidden_field_tag 'id', leaf.leafable.id %>
+                    <%= f.submit 'Update Leaf', class: 'btn btn-primary' %>
+                  </div>
+		</div>
 
-	  <div class="dropdown">
-	    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Move Leaf to Another Branch</button>
-	    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <h6 class="dropdown-header">Parent Branch</h6>
-		<% if @parent_branch %>
-                  <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => @parent_branch.id) %>"><%= @parent_branch.name %></a>
+	      </div><!-- end modal body -->
+            <% end %><!-- end edit text form -->
+          <% end %> <!-- End Edit Leaf Forms -->
 
-		<% end %>
-              <div class="dropdown-divider"></div>
-	      <h6 class="dropdown-header">Child Branch</h6>
-		<% if !(@branch.child_branches.empty?) %>
-		  <% @child_branches.pluck(:id, :name).each do |b| %>
-       	            <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => b[0]) %>"><%= b[1] %></a>
-		  <% end %>
-	        <% end %>
-	    </div>
-	  </div>
-
-        </div>
-
-      <div class="modal-footer text-center">
-	  <div class="col-md-6 col-sm-6 text-left">
+        <div class="modal-footer"> <!-- begin modal footer -->
+	  <div class="col-md-4 col-sm-4 text-left"> <!-- delete leaf option -->
             <% if @is_current_admin_collaborator %>
-              <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @collab_project.id, 
+              <%= link_to "Delete Leaf", collab_project_branch_leaf_path(:collab_project_id => @collab_project.id, :page => @current_page,
 		:branch_id => @branch.id, :id => leaf.id), method: :delete, data: { confirm: "You sure?" } %>
             <% end %>
           </div>
-	  <div class="col-md-6 col-sm-6 text-right">
+	  <div class="col-md-4 col-sm-4"> <!-- move leaf option -->
+          <div class="dropdown"> <!-- begin leaf mobility button -->
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Move Leaf to Another Branch</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <h6 class="dropdown-header">Parent Branch</h6>
+                <% if @parent_branch %>
+                  <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => @parent_branch.id) %>"><%= @parent_branch.name %></a>
+
+                <% end %>
+              <div class="dropdown-divider"></div>
+              <h6 class="dropdown-header">Child Branch</h6>
+                <% if !(@branch.child_branches.empty?) %>
+                  <% @child_branches.pluck(:id, :name).each do |b| %>
+                    <a class="dropdown-item" href="<%= collab_project_branch_move_leaf_path(:collab_project_id => @collab_project.id, :branch_id => @branch.id, :id => leaf.id, :target_branch_id => b[0]) %>"><%= b[1] %></a>
+                  <% end %>
+                <% end %>
+            </div>
+          </div> <!-- end leaf mobility button -->
+	  </div>
+	  <div class="col-md-4 col-sm-4 text-right"> <!-- dismiss modal -->
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	  </div>
-      </div>
+      </div> <!-- End modal footer -->
 
     </div>
   </div>

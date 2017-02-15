@@ -5,6 +5,8 @@ class CommentsController < ApplicationController
 #  end
 
   def new
+    @current_page = params[:page]
+    @active_leaf = Leaf.find_by(id: params[:active_leaf])
     if params[:parent_id]
       @comment = Comment.new(parent_id: params[:parent_id])
     end
@@ -23,7 +25,7 @@ class CommentsController < ApplicationController
       else
         flash[:warning] = 'Your comment failed!'
       end
-      redirect_to collab_project_branch_path(branch.collabproject, branch)
+    redirect_to collab_project_branch_path(branch.collabproject, branch, :page => params[:page], :active_leaf => params[:active_leaf])
 
     # Leaf comment
     elsif params[:leaf_id]
@@ -35,7 +37,7 @@ class CommentsController < ApplicationController
       else
         flash[:warning] = 'Your comment failed!'
       end
-      redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
+    redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch, :page => params[:page], :active_leaf => params[:active_leaf])
 
     # Collab comment
     elsif params[:collabproject_id]
@@ -58,7 +60,7 @@ class CommentsController < ApplicationController
     branch = comment.branch
     if current_admin.id  == comment.collaborator.admin.id
       comment.destroy
-      flash[:success] = "Game deleted"
+      flash[:success] = "Comment deleted"
     end
     redirect_to collab_project_branch_path(branch.collabproject, branch)
   end

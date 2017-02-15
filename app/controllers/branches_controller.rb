@@ -43,7 +43,13 @@ class BranchesController < ApplicationController
     (@current_page = 1) if @current_page == 0
     @leaf_count = @branch.leaves.count
     @leaf_count == 0 ? @all_leaves = nil : @all_leaves = @branch.leaves.order('created_at DESC').includes(:leafable, :branch, { comments: [ { collaborator: [:admin] } ] } ).leaf_paginate(@current_page, 5)
-    @leaf_count == 0 ? @active_leaf = nil : @active_leaf = @all_leaves.first
+    if  @leaf_count == 0
+      @active_leaf = nil
+    elsif params[:active_leaf] 
+      @active_leaf = Leaf.find(params[:active_leaf])
+    else
+      @active_leaf = @all_leaves.first
+    end
     @pages = (@leaf_count / 5.to_f).ceil
 
     @branch.child_branches ? @child_branches = @branch.child_branches : @child_branches = nil

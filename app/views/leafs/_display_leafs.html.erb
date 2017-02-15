@@ -32,7 +32,7 @@
 <!-- End Leaf Pagination Nav -->
       </div>
       <div class="col-sm-6 text-center">
-        Leaves <span class="badge badge-success"><%= @leaf_count %></span>
+        <h1 class="display-4">Leaves <span class="badge badge-success"><%= @leaf_count %></span></h4>
       </div>
       <div class="col-sm-3"></div>
       </div>
@@ -43,17 +43,18 @@
     <div class="card">
       <div class="card-block">
 
-        <ul class="nav nav-pills nav-fill align-items-end" id="dashboard_leafs" >
+        <!-- Leaf Header -->
+        <ul class="nav nav-pills nav-justified align-items-end" id="dashboard_leafs" >
           <% @all_leaves.each do |leaf| %>
-            <% leaf.id == @active_leaf.id ? leaf_status = 'active' : leaf_status = nil %>
-            <%= render :partial => 'leafs/leaf_tab', :locals => { :leaf => leaf, :leaf_status => leaf_status }  %>
+            <%= render :partial => 'leafs/leaf_tab', :locals => { :leaf => leaf, :leaf_status => (leaf.id == @active_leaf.id ? 'active' : nil) }  %>
           <% end %>
         </ul>
 
+        <!-- Leaf Content -->
 	<div class="tab-content">
           <% @all_leaves.each do |leaf| %>
-            <% leaf.id == @active_leaf.id ? leaf_status = 'active' : leaf_status = nil %>
-            <%= render :partial => 'leafs/leaf_pane', :locals => { :leaf => leaf, :leaf_status => leaf_status }  %>
+            <%= render :partial => 'leafs/leaf_pane', :locals => { :leaf => leaf, :leaf_status => (leaf.id == @active_leaf.id ? 'active' : nil) }  %>
+
           <% end %>
         </div>
 

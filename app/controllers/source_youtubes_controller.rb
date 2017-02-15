@@ -10,7 +10,7 @@ class SourceYoutubesController < ApplicationController
     else
       flash[:alert] = 'Leaf Creation Failed!'
     end
-    redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch)
+    redirect_to collab_project_branch_path(leaf.branch.collabproject, leaf.branch, :active_leaf => leaf.id)
   end
 
   def edit_yt
@@ -18,7 +18,7 @@ class SourceYoutubesController < ApplicationController
     source_youtube.update_link(params[:source_youtube][:link])
     source_youtube.update_text(params[:content_yt])
     source_youtube.leaf.update_title(params[:youtube_title])
-    redirect_to collab_project_branch_path(source_youtube.leaf.branch.collabproject, source_youtube.leaf.branch)
+    redirect_to collab_project_branch_path(source_youtube.leaf.branch.collabproject, source_youtube.leaf.branch, :page => params[:page], :active_leaf => source_youtube.leaf.id)
   end
 
   private

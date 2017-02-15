@@ -4,7 +4,7 @@
     <!-- Collapse Heaer for Leaf Comments -->
     <div class="card-header" role="tab" id=<%= 'heading' + leaf.id.to_s %>>
       <h5 class="mb-0">
-	<h4>
+	<h4 class="display-4">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href=<%= '#collapse' + leaf.id.to_s %> aria-expanded="false" aria-controls=<%= 'collapse' + leaf.id.to_s %>>
            Add / View Leaf Comments</a> <span class="badge badge-success"><%= leaf.comments.empty? ? 0 : leaf.comments.count %></span>
         </h4>
