@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'static_pages/help'
 
   mount Ckeditor::Engine => '/ckeditor'
-  devise_for :admins
+  devise_for :admins, :controllers => {:registrations => 'admins/registrations' }
   root to: "collab_projects#index"
   
   resources :posts
@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   resources :source_texts, only: [:create, :edit]
   resources :source_youtubes, only: [:create, :edit]
   resources :comments, only: [:new, :create, :destroy]
+  #get 'invite', to: 'collaborators#invite'
 
   resources :collab_projects do
     resources :branches
     resources :collaborators, only: [:new, :create]
+    post 'invite', to: 'collaborators#invite'
 
     resources :branches do
       get 'new_child_branch', to: 'branches#new'
@@ -27,10 +29,6 @@ Rails.application.routes.draw do
       resources :leafs
 
       resources :leafs do
-        collection do
-          post 'set_source_type', to: 'leafs#set_source_type'
-        end
-
         post 'create', to: 'leafs#create'
       end
     end

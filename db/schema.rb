@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170210225032) do
+ActiveRecord::Schema.define(version: 20170216011043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,16 @@ ActiveRecord::Schema.define(version: 20170210225032) do
     t.integer  "parent_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.integer  "collab_id"
+    t.string   "name"
+    t.string   "email"
+    t.string   "invite_token"
+    t.string   "message"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "leafs", force: :cascade do |t|
