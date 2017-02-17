@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :branches
     resources :collaborators, only: [:new, :create]
     post 'invite', to: 'collaborators#invite'
+    get 'invite', to: 'collaborators#new'
 
     resources :branches do
       get 'new_child_branch', to: 'branches#new'

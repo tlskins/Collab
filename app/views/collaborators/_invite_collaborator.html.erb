@@ -1,0 +1,38 @@
+<button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#myModalInviteCollaborator">Invite Collaborator By Email</button>
+
+<!-- Modal -->
+<div id="myModalInviteCollaborator" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">
+	  Invite Collaborator By Email<br />
+	</h4>
+      </div>
+
+      <div class="modal-body">
+        <%= form_for(@invite, url: collab_project_invite_path(@collab_project), html: {multipart: :true, class: "form", method: :post}) do |f| %>
+          <div class="form-group">
+            <%= f.label :name %><br />
+            <%= f.text_field :name, class: 'form-control' %><br />
+	  </div>
+
+	  <div class="form-group">
+	    <%= f.label :email %><br />
+            <%= f.text_field :email, class: 'form-control' %><br />
+          </div>
+
+          <%= f.submit "Invite", class: "btn btn-primary btn-lg" %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

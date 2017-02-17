@@ -1,36 +1,27 @@
-<div class="col-sm-offset-4 col-sm-4 col-xs-12">
-  <h2 class="text-center">Add Collaborator</h2>
+<%= render :partial => 'shared/errors', :locals => { :object => @invite} %>
 
+
+<div class="row">
+<div class="col-sm-offset-4 col-sm-6">
+  <h2 class="display-4 text-center">Add Collaborator</h2>
+
+  <p class="lead">
   <%= form_for(@collaborator, url: collab_project_collaborators_path(:collab_project_id => @collab_project.id), html: {multipart: :true, class: "form", method: :post}) do |f| %>
 
     <div class="form-group">
       <%= label :text, 'Add a collaborator to this project' %><br />
-      <%= f.collection_select :admin_id, @avail_collaborators, :id, :name  %><br />
+      <%= f.collection_select :admin_id, @avail_collaborators, :id, :name, prompt: true  %><br />
     </div>
 
-    <%= f.submit "Add", class: "btn btn-primary btn-lg" %>
-  <% end %>
+    <%= f.submit "Add", class: "btn btn-primary" %>
+  <% end %><br /><br />
+  </p>
 
-  <h2 class="text-center">Invite Collaborator</h2>
+</div>
+</div>
 
-  <%= form_for(@invite, url: collab_project_invite_path(:collab_project_id => @collab_project.id), html: {multipart: :true, class: "form", method: :post}) do |f| %>
-
-    <div class="form-group">
-      <%= label :text, 'Invite a someone by email to collaborate on this project' %><br />
-    </div>
-
-    <div class="form-group">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, class: "form-control" %>
-    </div>
-
-    <%= f.submit "Invite", class: "btn btn-primary btn-lg" %>
-  <% end %>
-
-
+<div class="row">
+  <div class="col-sm-offset-4 col-sm-6 text-center">
+    <%= render 'collaborators/invite_collaborator' %>
+  </div>
 </div>

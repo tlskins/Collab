@@ -1,0 +1,10 @@
+Hi <%= @invite.name %>,
+
+You have been invited to collaborate on "<%= @invite.collabproject.name %>"!
+
+Please click the link below to create a new account and start collaborating today!
+
+<%= new_admin_registration(:name => @invite.name, :email => @invite.email, :collab_id => @invite.collab_id, :invite_token => @invite.invite_token) %>
+
+Thanks!
+Collab Team

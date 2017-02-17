@@ -6,6 +6,9 @@ class CollaboratorsController < ApplicationController
     if current_admin
       @avail_collaborators = Admin.where("id not in (:x)", :x => CollabProject.find_by(id: params[:collab_project_id]).collaborators.admin_ids)
       @collaborator = @collab_project.collaborators.build
+    else
+      flash[:warning] = "Must be logged in!"
+      redirect_to root_path
     end
   end
 
@@ -22,8 +25,28 @@ class CollaboratorsController < ApplicationController
   def invite
     puts 'begin collaborators#invite'
     @collab_project = CollabProject.find(params[:collab_project_id])
-    #invite = Invite.create(invite_params) 
-    InviteMailer.invite(params[:invite][:name], params[:invite][:email], @collab_project).deliver_now
+    @invite = Invite.find_by(email: params[:invite][:email], collab_id: params[:collab_project_id])
+
+    # Either generate new invite token or create a new invite
+    if @invite
+      puts 'existing invite found, creating new token'
+      @invite.new_invite_token
+      @invite.reload
+    else
+      puts 'create new invite'
+      @invite = Invite.new(invite_params)
+      @invite.collabproject = @collab_project
+      if @invite.save
+        @invite.reload
+      else
+        @avail_collaborators = Admin.where("id not in (:x)", :x => CollabProject.find_by(id: params[:collab_project_id]).collaborators.admin_ids)
+        @collaborator = @collab_project.collaborators.build
+	flash[:warning] = 'Invite failed!'
+	render 'new'
+	return
+      end
+    end
+    InviteMailer.invite(@invite).deliver_later
     redirect_to collab_project_path(@collab_project)
   end 
 
