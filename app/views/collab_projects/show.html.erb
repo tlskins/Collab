@@ -3,8 +3,11 @@
         <h1 class="display-3 text-center"><b>Collab<br /></b><%= @collab_project.name %></h1>
 	<hr class="my-3">
         <p class="lead"><br /><%= sanitize @collab_project.description.gsub('<div>','').gsub('</div>','') %></p>
-        <p class="lead text-muted"><b>Collaborators: </b><%= @collaborators_list %></p>
-        <p class="lead text-muted"><b>Created at: </b><%= @collab_project.created_at.strftime('%-d %B %Y') %></p>
+        <p class="lead text-muted">
+	  <b>Created on: </b><%= @collab_project.created_at.strftime('%-d %B %Y') %><br />
+	  <b>Project Privacy setting: </b><%= @collab_project.private == true ? 'Private' : 'Public' %><br /><br />
+	</p>
+        <p class="lead text-muted text-center"><b>Collaborators</b><br /><%= @collaborators_list %></p>
 
         <% if current_admin_collaborator?(@collab_project.id) %>
         <p>

@@ -24,7 +24,12 @@
 	   <%= f.trix_editor :description %>
          </div>
 
-          <%= f.submit 'Edit Collab', class: 'btn btn-primary' %>
+         <div class="form-group">
+           <%= f.label :private, 'Check to make this a private project' %><br />
+           <%= f.check_box :private, class: "form-control" %>
+         </div>
+
+          <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
         </div>
 
           <% if current_admin and @collab_project.creator.admin.id == current_admin.id %>

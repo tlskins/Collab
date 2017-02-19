@@ -18,7 +18,7 @@
       <%= hidden_field_tag @comment.parent.commentable.class.to_s.downcase + '_id', @comment.parent.commentable.id %>
     <% end %>
     <%= f.hidden_field :parent_id %>
-    <%= f.label :body %>
+    <%= f.label :body, 'Comment' %>
     <%= f.text_area :body, class: 'form-control', required: true %>
   </div>
 

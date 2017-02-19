@@ -11,7 +11,7 @@
         <h4 class="modal-title">Edit Branch</h4>
       </div>
 
-      <%= form_for(@branch, url: collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :page => @current_page, :active_leaf => @active_leaf.id), html: {multipart: :true, class: "form"}) do |f| %>
+      <%= form_for(@branch, url: collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :branch_id => @branch.id, :page => @current_page, :active_leaf => (@active_leaf ? @active_leaf.id : nil)), html: {multipart: :true, class: "form"}) do |f| %>
         <div class="modal-body">
 
           <div class="form-group col-lg-12 text-center">

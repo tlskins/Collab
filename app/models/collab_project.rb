@@ -57,4 +57,9 @@ class CollabProject < ActiveRecord::Base
     description.to_s.gsub(/\n/, '<br/>').html_safe
   end
 
+  def set_private(is_private)
+    update_attributes(private: is_private)
+  end
+
+
 end

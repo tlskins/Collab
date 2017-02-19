@@ -10,8 +10,9 @@
     <% end %>
   <% end %>
 
+  <% @active_leaf ||= Leaf.new %>
   <% if current_admin and comment.collaborator.admin.id == current_admin.id %>
-    <%= link_to "delete", comment_path(comment), 
+    <%= link_to "delete", comment_path(comment, :page => @current_page, :active_leaf => @active_leaf.id), 
 	method: :delete, data: { confirm: "You sure?" } %>
   <% end %>
 </div>

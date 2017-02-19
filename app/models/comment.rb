@@ -6,7 +6,6 @@ class Comment < ActiveRecord::Base
         collab_name: Proc.new { |controller, model| model.collab_name }
 
   belongs_to :collaborator
-  #belongs_to :branch
   belongs_to :commentable, polymorphic: true
 
   acts_as_tree order: 'created_at DESC'

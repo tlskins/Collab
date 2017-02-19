@@ -1,5 +1,7 @@
 class CollabProjectsController < ApplicationController
-  before_action :load_activities, only: [:index, :show, :new, :edit]
+  before_action :load_activities, only: [:index, :show, :new]
+  before_action :check_project_privacy, only: [:show, :update, :destroy]
+  before_action :check_is_signed_in, only: [:new, :create]
   include PublicActivityHelper
   include CollaboratorHelper
 
@@ -8,7 +10,7 @@ class CollabProjectsController < ApplicationController
       @collab_projects = CollabProject.where(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
       @collab_projects_all = CollabProject.where.not(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
     else
-      @collab_projects_all = CollabProject.all
+      @collab_projects_all = CollabProject.where(private: [nil,false])
       @collab_projects = []
     end
   end
@@ -60,13 +62,27 @@ class CollabProjectsController < ApplicationController
   private
 
   def collab_project_params
-    params.require(:collab_project).permit(:name, :description)
+    params.require(:collab_project).permit(:name, :description, :private)
   end
 
   def load_activities
     if current_admin
       relevent_activities = PublicActivity::Activity.where("collab_id in (:x)", :x => current_admin.collaborators.collab_ids).order('created_at DESC').limit(20).includes(:owner, :trackable) 
       load_activities_hash( relevent_activities )
+    end
+  end
+
+  def check_project_privacy
+    if !(current_admin_collaborator?(params[:id])) and CollabProject.find(params[:id]).private == true
+      flash[:danger] = "Cannot access that project"
+      redirect_to root_path
+    end
+  end
+
+  def check_is_signed_in
+    if !(current_admin)
+      flash[:danger] = "You do not have access for that"
+      redirect_to root_path
     end
   end
 
