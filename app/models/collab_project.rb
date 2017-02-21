@@ -12,6 +12,10 @@ class CollabProject < ActiveRecord::Base
   belongs_to :creator, class_name: "Collaborator", foreign_key: :creator_id
   has_many :comments, as: :commentable
 
+  def self.ids
+    pluck(:id)
+  end
+
   def CollabProject.find_by_admin(admin)
     collabs = []
     Collaborator.where(admin_id: admin.id).each do |c|

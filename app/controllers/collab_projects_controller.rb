@@ -8,7 +8,8 @@ class CollabProjectsController < ApplicationController
   def index
     if current_admin
       @collab_projects = CollabProject.where(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
-      @collab_projects_all = CollabProject.where.not(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id))
+      puts '@collab_projects = ' + @collab_projects.ids.to_s
+      @collab_projects_all = CollabProject.where.not(id: Collaborator.where(admin_id: current_admin.id).pluck(:collab_id)).where("private is ? OR private = ?", nil, false)
     else
       @collab_projects_all = CollabProject.where(private: [nil,false])
       @collab_projects = []
