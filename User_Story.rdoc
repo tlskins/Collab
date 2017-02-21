@@ -1,0 +1,19 @@
+User Story Document
+
+-As a guest I should be able to view public projects but cannot edit or create anything within these projects.
+-As a collaborator I should be able to add any other registered user as a collaborator to any project I am working on.
+-As a collaborator I should be able to create and edit a project and specify its name, description, and change privacy settings.
+-As a collaborator I should be able to create and edit branches within a project I am collaborating on and specify its name and description.
+-As a collaborator I should be able to create and edit multiple leaves inside a branch containing textual data.
+-As a collbaorator I should be able to create and edit multiple leaves inside a branch containing existing youtube videos while displaying a thumbnail of the video.
+-As a collaborator I should be able to create text leaves while providing minimal formatting ability.
+-As a collaborator I should be able to create youtube leaves by uploading videos directly to youtube.
+-As a collaborator I want to be able to be notified of and be able to visit any recent changes to any proejcts I am collaborating on. Changes to be notified of include changes to project details, branches, and leaves. Notification should be color coded according to recency.
+-As a guest I should not be notified of any recent changes to any projects.
+-As a collaborator I want to be able to provide, reply to, view, and delete comments on the entire project.
+-As a collaborator I want to be able to provide, reply to, view, and delete comments on any branch.
+-As a collaborator I want to be able to provide, reply to, view, and delete comments on any leaf.
+-As a collaborator I want to be able to perform all the same actions and have a convenient layout on my mobile phone.
+-As a collaborator I would like to be able to view the leaves in a branch in an organized and paginatged manner.
+-As a collaborator I do not want long load times when viewing branches with numerous comments or leaves.
+
