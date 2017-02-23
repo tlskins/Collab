@@ -12,7 +12,8 @@
       </div>
 
         <div class="modal-body">
-
+	  <div>Leaves store ideas or information that other collaborators in the project can view, edit, and comment on<br /><br /></div>
+	  <span class="help-block text-center"><b>Select the type of data you are trying to upload</b></span>
           <ul class="nav nav-tabs" id="dashboard_leaf_data_types">
             <li class="active"><a href="#leaf_text_type" data-target="#leaf_text_type" data-toggle="tab"> Text </a></li>
             <li><a href="#leaf_youtube_type" data-target="#leaf_youtube_type" data-toggle="tab"> Youtube </a></li>
@@ -25,21 +26,21 @@
                 <br /><br />
                 <%= form_for(@source_youtube, html: {multipart: :true, class: "form"}) do |f| %>
                   <%= f.label :youtube_title, 'Leaf Title (Optional)'  %><br />
-                  <%= text_field_tag :youtube_title, nil,  class: 'form-control' %><br />
+                  <%= text_field_tag :youtube_title, nil,  class: 'form-control', placeholder: "Leaf Title" %><br />
 
                   <%= f.label :youtube, 'Youtube Link'  %><br />
                   <span class="help-block">A link to the video on YouTube.</span><br />
-                  <%= f.text_field :link, class: 'form-control' %><br />
+                  <%= f.text_field :link, class: 'form-control', placeholder: "URL to Youtube Video"%><br />
 
                   <%= f.label :text, 'Text' %><br />
                   <div class="text-left">
-                    <%= f.trix_editor :text %><br />
+                    <%= f.trix_editor :text, placeholder: "Any extra info you want to include with this video" %><br />
                   </div>
 
                   <%= hidden_field_tag 'branch_id', @branch.id %>
 
                  <div class="form-group col-lg-12 col-md-10 text-center">
-                   <%= f.submit 'Create Leaf', class: 'btn btn-primary' %>
+                    <%= f.submit 'Create Leaf', class: 'btn btn-secondary', "data-toggle": "tooltip", "data-placement": "bottom", title: "Click to create a new Leaf representing an idea other collaborators can collaborate on!" %>
                  </div>
                 <% end %>
               </div>
@@ -50,17 +51,17 @@
                 <br /><br />
                 <%= form_for(@source_text, html: {multipart: :true, class: "form"}) do |t| %>
                   <%= t.label :text_title, 'Leaf Title (Optional)'  %><br />
-                  <%= text_field_tag :text_title, nil,  class: 'form-control' %><br />
+                  <%= text_field_tag :text_title, nil,  class: 'form-control', placeholder: "Leaf Title" %><br />
 
-                  <%= t.label :text, 'Text' %><br />
+                  <%= t.label :text, 'Leaf Text' %><br />
                   <div class="text-left">
-                    <%= t.trix_editor :text %><br />
+                    <%= t.trix_editor :text, placeholder: "Enter Leaf Text here" %><br />
  		  </div>
 
                   <%= hidden_field_tag 'branch_id', @branch.id %>
 
                   <div class="form-group col-lg-12 col-md-10 text-center">
-                    <%= t.submit 'Create Leaf', class: 'btn btn-primary' %>
+                    <%= t.submit 'Create Leaf', class: 'btn btn-secondary', "data-toggle": "tooltip", "data-placement": "bottom", title: "Click to create a new Leaf representing an idea other collaborators can collaborate on!" %>
                   </div>
                 <% end %>
               </div>

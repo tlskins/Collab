@@ -16,4 +16,5 @@
 //= require turbolinks
 //= require ckeditor/init
 //= require trix
+//= require toggle_tooltip
 //= require_tree .

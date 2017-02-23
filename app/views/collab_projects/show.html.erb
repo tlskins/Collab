@@ -12,10 +12,16 @@
         <% if current_admin_collaborator?(@collab_project.id) %>
         <p>
           <hr class="my-4">
-	  <div class="text-center">
-            <%= render 'collab_projects/edit_collab' %>
-            <a href=<%= new_collab_project_collaborator_path(@collab_project) %> class="btn btn-primary">Add Collaborator</a>
-            <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-primary">Create Branch</a>
+	  <div class="row text-center">
+	    <div class="col-lg-6 col-sm-5">
+  	      <p class="lead"><b>Project Changes</b></p>
+              <%= render 'collab_projects/edit_collab' %>
+              <a href=<%= new_collab_project_collaborator_path(@collab_project) %> class="btn btn-primary">Add Collaborator</a>
+	    </div>
+	    <div class="col-lg-6 col-sm-5 col-lg-offset-0 col-sm-offset-1 left-divider">
+  	      <p class="lead"><b>Branch Changes</b></p>
+              <a href=<%= new_collab_project_branch_path(@collab_project) %> class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Add a new Branch (Folder) to the root of your project. Branches serve as folders to help organize your ideas.">Add Branch</a>
+	    </div>
 	  </div>
         </p>
  	<% end %>

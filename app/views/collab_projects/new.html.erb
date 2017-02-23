@@ -1,19 +1,22 @@
-<div class="col-sm-offset-4 col-sm-4 col-xs-12">
+<div class="col-sm-offset-2 col-lg-offset-3 col-sm-8 col-lg-7">
   <h2 class="text-center">Create New Collab</h2>
+  <p class="lead text-center">Start a new creative project!<br /><br /></p>
+  <p class="lead text-left">A Collab can help you organize your ideas into separate "Branches" where your ideas can be represented as "Comments" or "Leaves"<br /><br /></p>
 
   <%= form_for(@collab_project, url: {action: "create"}, html: {multipart: :true, class: "form"}) do |f| %>
 
     <div class="form-group">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      <%= f.label :name, "Collab Name"%><br />
+      <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Collab Project Name" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :description %><br />
-      <%= f.trix_editor :description %>
+      <%= f.label :description, "Collab Description" %><br />
+      <%= f.trix_editor :description , placeholder: "Collab Project Description" %>
     </div>
 
-    <%= f.submit "Create", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Create", class: "btn btn-secondary btn-lg", "data-toggle": "tooltip", "data-placement": "bottom", title: "Click to create a new Project where you can store and collaborate on all your creative ideas!" %>
+ 
   <% end %>
 
 </div>

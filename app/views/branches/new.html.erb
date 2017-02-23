@@ -1,16 +1,19 @@
-<div class="col-sm-offset-4 col-sm-4 col-xs-12">
+<div class="col-sm-offset-2 col-lg-offset-3 col-sm-8 col-lg-7">
   <h2 class="text-center">Create Branch</h2>
+  <p class="lead text-center">Create a new Branch (Folder) to organize your ideas<br /><br /></p>
+  <p class="lead text-left">A Branch's name and purpose help categorize what ideas or information will be stored in this Branch<br /><br /></p>
+
 
   <%= form_for(@branch, url: {action: "create"}, html: {multipart: :true, class: "form"}) do |f| %>
 
     <div class="form-group">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, class: "form-control" %>
+      <%= f.label :name, "Branch Name" %><br />
+      <%= f.text_field :name, autofocus: true, class: "form-control", placeholder: "Choose a name to help collaborators identify a branch's contents" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :purpose %><br />
-      <%= f.trix_editor :purpose %>
+      <%= f.label :purpose, "Branch Purpose" %><br />
+      <%= f.trix_editor :purpose, placeholder: "The purpose of this branch is to store what types of ideas / information?" %>
     </div>
 
     <% if @parent_branch %>
@@ -18,7 +21,7 @@
     <% end %>
 
 
-    <%= f.submit "Create", class: "btn btn-primary btn-lg" %>
+    <%= f.submit "Create", class: "btn btn-secondary btn-lg", "data-toggle": "tooltip", "data-placement": "bottom", title: "Click to create a new Branch to store your creative ideas!" %>
   <% end %>
 
 </div>

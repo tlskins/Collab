@@ -12,16 +12,18 @@
     
         <% if @is_current_admin_collaborator %>
         <hr class="my-4">
-        <div class="container-block text-center">
-          <p>
-            <% if current_admin and @branch.creator.admin.id == current_admin.id %>
+        <div class="row text-center">
+          <div class="col-lg-6 col-sm-5">
+            <p class="lead"><b>Edit Current Branch</b></p>
               <%= link_to "Delete Branch", collab_project_branch_path(:collab_project_id => @branch.collabproject.id, :id => @branch.id), 
-		method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary" %>
-            <% end %>
-            <%= render('branches/edit_branch') %>
-            <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Branch</a>
+	 	method: :delete, data: { confirm: "You sure?" }, class: "btn btn-primary" %>
+              <%= render('branches/edit_branch') %>
+	  </div>
+          <div class="col-lg-6 col-sm-5 col-lg-offset-0 col-sm-offset-1 left-divider">
+            <p class="lead"><b>Make Additions To Current Branch</b></p>
+            <a href=<%= collab_project_branch_new_child_branch_path(@branch.collabproject, @branch) %> class="btn btn-primary">Add Child Branch</a>
             <%= render('branches/add_leaf') %>
-          </p>
+          </div>
         </div>
         <% end %>
 
