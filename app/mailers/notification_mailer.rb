@@ -1,9 +1,10 @@
 class NotificationMailer < ActionMailer::Base
   default from: "collab.mailer@collab.com"
 
-  def notification(admin_id, collabproject, admin_sender, link, message)
+  def notification(admin_id, collabproject, admin_sender, link, activity_text, message)
     @collabproject = collabproject
     @admin_sender = admin_sender
+    @activity_text = activity_text
     @message = message
     @link = link
     @admin = Admin.find(admin_id)

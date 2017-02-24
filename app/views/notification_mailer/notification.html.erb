@@ -6,14 +6,14 @@
   <body>
     <h1>This is a notification from the Collab, <%= @collabproject.name %>!</h1>
     <p>
-      <%= @admin_sender.name %> has made some changes to the project and would like to notify you of some recent changes!<br>
+      <%= @admin_sender.name %> has made some changes to the project and would like to notify you of some recent changes!<br><br>
+      <% if !(@activity_text.empty?) %>
+        Recent Activity: <%= sanitize @activity_text.to_s %><br><br>
+      <% end %>
     </p>
     <p>
       <% if !(@message.empty?) %>
-        <blockquote class="blockquote">
-          <p class="mb-0"><%= sanitize @message.to_s %></p>
-          <footer class="blockquote-footer"><%= @admin_sender.name %></footer>
-        </blockquote><br><br>
+        Message from <%= @admin_sender.name %>: <%= sanitize @message.to_s %><br><br>
       <% end %>
       To view the changes please follow the link: <%= @link %>
       <p><br>Thanks,<br>Collab Team</p>

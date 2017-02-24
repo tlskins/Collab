@@ -25,7 +25,8 @@
 
   <% @activities_array.each do |activity_hash| %>
     <% if activity_hash.fetch('css class') == 'list-group-item-warning' and !(activity_hash.fetch('link') == nil) and @collab_project %>
-      <%= render 'shared/email_notify_button', id: activity_hash.fetch('id'), link: activity_hash.fetch('url'), collaborators: @collaborators_array.select { |admin| admin.collab_id == activity_hash.fetch('collab_id') }%>
+      <% activity_text = activity_hash.fetch('owner') + ' ' + activity_hash.fetch('text') + ' ' + activity_hash.fetch('name') %>
+      <%= render 'shared/email_notify_button', id: activity_hash.fetch('id'), link: activity_hash.fetch('url'), activity_text: activity_text, collaborators: @collaborators_array.select { |admin| admin.collab_id == activity_hash.fetch('collab_id') }%>
     <% end %>
   <% end %>
 
