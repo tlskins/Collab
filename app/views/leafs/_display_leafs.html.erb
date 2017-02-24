@@ -44,7 +44,7 @@
       <div class="card-block">
 
         <!-- Leaf Header -->
-        <ul class="nav nav-pills nav-justified align-items-end" id="dashboard_leafs" >
+        <ul class="nav nav-pills nav-justified" id="dashboard_leafs" >
           <% @all_leaves.each do |leaf| %>
             <%= render :partial => 'leafs/leaf_tab', :locals => { :leaf => leaf, :leaf_status => (leaf.id == @active_leaf.id ? 'active' : nil) }  %>
           <% end %>

@@ -15,7 +15,18 @@
         <% end %>
        	in Collab <strong><%= activity_hash.fetch('collab_name') ? activity_hash.fetch('collab_name') : nil %></strong>
         <%= time_ago_in_words(activity_hash.fetch('created_at')) + ' ago' %>
+
+        <% if activity_hash.fetch('css class') == 'list-group-item-warning' and !(activity_hash.fetch('link') == nil) and @collab_project %>
+	  <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="<%= "#myModalEmailNotify" + activity_hash.fetch('id').to_s %>">Email Notify Collaborators</button>
+	<% end %>
       </li>
     <% end %>
   </ul>
+
+  <% @activities_array.each do |activity_hash| %>
+    <% if activity_hash.fetch('css class') == 'list-group-item-warning' and !(activity_hash.fetch('link') == nil) and @collab_project %>
+      <%= render 'shared/email_notify_button', id: activity_hash.fetch('id'), link: activity_hash.fetch('url'), collaborators: @collaborators_array.select { |admin| admin.collab_id == activity_hash.fetch('collab_id') }%>
+    <% end %>
+  <% end %>
+
 </div>

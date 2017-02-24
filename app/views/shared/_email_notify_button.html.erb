@@ -1,0 +1,38 @@
+
+<!-- Modal -->
+<div id="<%= "myModalEmailNotify" + id.to_s %>" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-left">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Notify Collaborator By Email</h4>
+      </div>
+
+      <div class="modal-body text-center">
+        <%= form_tag( "/collab_projects/" + @collab_project.id.to_s + "/notify", html: {multipart: :true, class: "form", method: :post}) do  %>
+          <div class="form-group">
+            <%= label_tag( :admin_recipients, "Choose collaborators to notify" ) %><br />
+            <span class="help-block">(Press CTRL + Click to select multiple)</span><br />
+            <%= select_tag( :admin_recipients, options_from_collection_for_select( collaborators, 'admin_id', 'name'), multiple: true, class: "form-control")  %><br />
+          </div>
+
+          <div class="form-group text-left">
+            <%= label_tag( :message, "Include a message in your notification (Optional)") %><br />
+            <%= text_area_tag( :message, nil, placeholder: "Include a message for your fellow collaborators...", class: 'form-control') %><br />
+          </div>
+
+          <%= hidden_field_tag( 'link', link ) %>
+
+          <%= submit_tag( "Notify", class: "btn btn-primary btn-lg" ) %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

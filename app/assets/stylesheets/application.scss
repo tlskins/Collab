@@ -71,15 +71,28 @@ body {
   margin-bottom: 70px;
 }
 
-.nav-tabs {
+/* Leaf Navs */
+.nav-pills {
   overflow-x: auto;
   overflow-y: hidden;
   display: -webkit-box;
   display: -moz-box;
+  display: flex;
 }
-.nav-tabs>li {
+
+.nav-pills>li {
   float: none;
 }
+.nav-pills li {
+    display: flex;
+    flex: 1;
+}
+
+.nav-pills li  a {
+    flex: 1;
+}
+/* End Leaf Navs */
+
 
 .comment {
   overflow-wrap:break-word;

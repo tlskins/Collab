@@ -69,7 +69,7 @@ class CollabProjectsController < ApplicationController
   def load_activities
     if current_admin
       relevent_activities = PublicActivity::Activity.where("collab_id in (:x)", :x => current_admin.collaborators.collab_ids).order('created_at DESC').limit(20).includes(:owner, :trackable) 
-      load_activities_hash( relevent_activities )
+      load_activities_hash( relevent_activities, current_admin )
     end
   end
 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>This is a notification from the Collab, <%= @collabproject.name %>!</h1>
+    <p>
+      <%= @admin_sender.name %> has made some changes to the project and would like to notify you of some recent changes!<br>
+    </p>
+    <p>
+      <% if !(@message.empty?) %>
+        <blockquote class="blockquote">
+          <p class="mb-0"><%= sanitize @message.to_s %></p>
+          <footer class="blockquote-footer"><%= @admin_sender.name %></footer>
+        </blockquote><br><br>
+      <% end %>
+      To view the changes please follow the link: <%= @link %>
+      <p><br>Thanks,<br>Collab Team</p>
+    </p>
+  </body>
+</html>

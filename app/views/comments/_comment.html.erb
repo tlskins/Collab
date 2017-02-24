@@ -5,7 +5,7 @@
 
   <% from_reply_form ||= nil %>
   <% unless from_reply_form %>
-    <% if @is_current_admin_collaborator %>.
+    <% if @is_current_admin_collaborator %>
       <p><%= link_to 'reply', new_comment_path(:parent_id => comment.id, :page => @current_page, :active_leaf => @active_leaf.id) %></p>
     <% end %>
   <% end %>

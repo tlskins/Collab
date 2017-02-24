@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :branches
     resources :collaborators, only: [:new, :create]
     post 'invite', to: 'collaborators#invite'
+    post 'notify', to: 'collaborators#notify'
     get 'invite', to: 'collaborators#new'
 
     resources :branches do

@@ -16,6 +16,9 @@ class CollabProject < ActiveRecord::Base
     pluck(:id)
   end
 
+  def self.all_other_admins_array
+  end
+
   def CollabProject.find_by_admin(admin)
     collabs = []
     Collaborator.where(admin_id: admin.id).each do |c|

@@ -22,6 +22,15 @@ class CollaboratorsController < ApplicationController
     redirect_to collab_project_path(@collab_project)
   end
 
+  def notify
+    puts 'begin collaborators#notify'
+    @collab_project = CollabProject.find(params[:collab_project_id])
+    params[:admin_recipients].each do |admin_id|
+      NotificationMailer.notification(admin_id, @collab_project, current_admin, params[:link], params[:message]).deliver_now
+    end
+    redirect_to collab_project_path(@collab_project)
+  end
+
   def invite
     puts 'begin collaborators#invite'
     @collab_project = CollabProject.find(params[:collab_project_id])
