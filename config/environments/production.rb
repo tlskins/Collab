@@ -85,7 +85,7 @@ Rails.application.configure do
   port:                 587,
   domain:               'collab.com',
   user_name:            'collab.mailer',
-  password:             'collabmailer',
+  password:             ENV["COLLAB_MAILER_PWD"],
   authentication:       'plain',
   enable_starttls_auto: true  }
 end
